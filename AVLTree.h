@@ -7,10 +7,11 @@ struct AVLNode
 	AVLNode* right;
 	int height;
 };
-AVLNode* root = NULL;
 
 class AVLTree {
 public:
+	AVLNode* root = NULL;
+	// Unit of help functions for insertion and deletion
 	int GetHight(AVLNode* p) {
 		int hl, hr;
 		hl = (p && p->left) ? p->left->height : 0;
@@ -28,14 +29,28 @@ public:
 		return hl - hr;
 
 	}
-
-
 	int max(int a, int b)
 	{
 		return (a > b) ? a : b;
 	}
 
+	//help functions on deletions
+	AVLNode* InPre(AVLNode* p) {
+		while (p && p->right != nullptr) {
+			p = p->right;
+		}
+		return p;
+	}
+	AVLNode* InSucc(AVLNode* p) {
+		while (p && p->left != nullptr) {
+			p = p->left;
+		}
+		return p;
+	}
 
+
+
+	// For rotations
 	AVLNode* LLRotation(AVLNode* p) {
 		// p is a node that is impalance
 		AVLNode* left_p = p->left; // this node will be the parent "root" 
@@ -54,7 +69,71 @@ public:
 
 		return left_p; // new root
 	}
+	AVLNode* LRRotation(AVLNode* p)
+	{
+		// 4 assin links should be done 
+		int lbf, rbf;
 
+		AVLNode* pl = p->left;
+		AVLNode* plr = pl->right;
+
+		p->left = plr->right;
+		pl->right = plr->left;
+
+		plr->left = pl;
+		plr->right = p;
+
+		// modify hights
+		pl->height = GetHight(pl);
+		p->height = GetHight(p);
+		plr->height = GetHight(plr);
+
+		if (p == root)root = plr;
+		return plr;
+	}
+
+	AVLNode* RRRotation(AVLNode* p) {
+		AVLNode* pr = p->right;
+		AVLNode* prl = pr->left;
+
+		pr->left = p;
+		p->right = prl;
+
+		// Update height
+		p->height = GetHight(p);
+		pr->height = GetHight(pr);
+
+		// Update root
+		if (root == p) {
+			root = pr;
+		}
+		return pr;
+	}
+	AVLNode* RLRotation(AVLNode* p) {
+		AVLNode* pr = p->right;
+		AVLNode* prl = pr->left;
+
+		pr->left = prl->right;
+		p->right = prl->left;
+
+		prl->right = pr;
+		prl->left = p;
+
+		// Update height
+		pr->height = GetHight(pr);
+		p->height = GetHight(p);
+		prl->height = GetHight(prl);
+
+		// Update root
+		if (root == p) {
+			root = prl;
+		}
+		return prl;
+	}
+
+
+
+	// For Display
 	void preOrder(AVLNode* root)
 	{
 		if (root != NULL)
@@ -82,6 +161,14 @@ public:
 
 		}
 	}
+	void Inorder(AVLNode* p) {
+		if (p) {
+			Inorder(p->left);
+			std::cout << p->data << ", ";
+			Inorder(p->right);
+		}
+	}
+
 
 	AVLNode* insert(AVLNode* node, int key)
 	{
@@ -138,13 +225,13 @@ public:
 			}
 			else if (key > node->left->data) {
 				// LR case
-				//return LRRotation(node);
+				return LRRotation(node);
 			}
 		}
 		else if (balanceFactor < -1) {
 			if (key > node->right->data) {
 				//RR case 
-				//return RRRotation();
+				return RRRotation(node);
 			}
 			else if (key < node->right->data) {
 				//RL case
@@ -153,4 +240,82 @@ public:
 		}
 		return node;
 	}
+	AVLNode* Delete(AVLNode* p, int key) {
+		if (p == nullptr) {
+			return nullptr;
+		}
+		// this is normal bst deletion 
+		if (p->left == nullptr && p->right == nullptr) {
+			// no child
+			if (p == root) {
+				// if this node is the tree root
+				root = nullptr;
+			}
+			delete p;
+			return nullptr;
+		}
+		if (key < p->data) {
+			p->left = Delete(p->left, key);
+		}
+		else if (key > p->data) {
+			p->right = Delete(p->right, key);
+		}
+		// untill here we dont found the key
+		else { // oh we found the node which be deleted 
+			// the avl tree work start from here 
+			AVLNode* q;
+			if (GetHight(p->left) > GetHight(p->right)) {
+				q = InPre(p->left);
+				p->data = q->data;
+				p->left = Delete(p->left, q->data);
+			}
+			else {
+				q = InSucc(p->right);
+				p->data = q->data;
+				p->right = Delete(p->right, q->data);
+			}
+		}
+
+		// Update height
+		p->height = GetHight(p);
+
+		// after update the hight and delete the node we should look for if the deleted node 
+		// cause imbalance in the tree and rotate if true (the same in inserting) GH :)
+		
+		int balanceFactor = getbalance(p);//for each node in return time
+			
+
+		if (balanceFactor > 1) {
+			// mean this node what i stand on it "impalance"
+			if (key < p->left->data) {
+				// we can do it (balance factor(node) == 2 && balance factor(node->left) == 1)
+				// LL case 
+				return LLRotation(p);
+			}
+			else if (key > p->left->data) {
+				// LR case
+				return LRRotation(p);
+			}
+		}
+		else if (balanceFactor < -1) {
+			if (key > p->right->data) {
+				//RR case 
+				return RRRotation(p);
+			}
+			else if (key < p->right->data) {
+				//RL case
+				//return RLRotation();
+			}
+		}
+		return p;
+
+
+
+
+
+	}
+
+
+
+
 };
