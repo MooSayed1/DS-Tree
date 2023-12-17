@@ -3,23 +3,23 @@
 
 #include <cstddef>
 #include <iostream>
+#include <string>
+#include "AVLTree.h"
+#include "LinkedList.h"
+using namespace std;
 
 template <typename KeyType, typename ValueType>
 class HashTable {
 private:
     // Define the structure for a node in the hash table
-    struct Node {
-        KeyType key;
-        ValueType value;
-        Node* next;
-    };
-
+        KeyType key;  // string if we use handel name or int if you want
+        ValueType value;  // This Will be structer which we will use 
     size_t size;
-    Node** table;
+    // Node** table;
 
     // Private member functions
-    Node* createNode(KeyType key, ValueType value);
-    size_t hash(KeyType key);
+    // Node* createNode(KeyType key, ValueType value);
+    // size_t hash(KeyType key);
 
 public:
     // Constructor
@@ -29,94 +29,100 @@ public:
     ~HashTable();
 
     // Member functions
+    int hash_string(string str, int n) {
+        long long nn = n;
+        long long sum = 0;
+        for (int i = 0; i < (int) str.size(); ++i)
+            sum = (sum * 26 + str[i] - 'a') % nn;
+        return sum % nn;
+    }
     void insert(KeyType key, ValueType value);
     bool get(KeyType key, ValueType& value);
     void removeEntry(KeyType key);
 };
 
 // Implementation of member functions
-template <typename KeyType, typename ValueType>
-HashTable<KeyType, ValueType>::HashTable(size_t size) : size(size) {
-    table = new Node*[size]();
-}
+// template <typename KeyType, typename ValueType>
+// HashTable<KeyType, ValueType>::HashTable(size_t size) : size(size) {
+//     table = new Node*[size]();
+// }
+//
+// template <typename KeyType, typename ValueType>
+// HashTable<KeyType, ValueType>::~HashTable() {
+//     for (size_t i = 0; i < size; ++i) {
+//         Node* current = table[i];
+//         while (current != nullptr) {
+//             Node* next = current->next;
+//             delete current;
+//             current = next;
+//         }
+//     }
+//     delete[] table;
+// }
+//
+// template <typename KeyType, typename ValueType>
+// typename HashTable<KeyType, ValueType>::Node*
+// HashTable<KeyType, ValueType>::createNode(KeyType key, ValueType value) {
+//     Node* newNode = new Node;
+//     newNode->key = key;
+//     newNode->value = value;
+//     newNode->next = nullptr;
+//     return newNode;
+// }
+// template <typename KeyType, typename ValueType>
+// size_t HashTable<KeyType, ValueType>::hash(KeyType key) {
+//     return std::hash<KeyType>{}(key) % size;
+// }
 
-template <typename KeyType, typename ValueType>
-HashTable<KeyType, ValueType>::~HashTable() {
-    for (size_t i = 0; i < size; ++i) {
-        Node* current = table[i];
-        while (current != nullptr) {
-            Node* next = current->next;
-            delete current;
-            current = next;
-        }
-    }
-    delete[] table;
-}
+// template <typename KeyType, typename ValueType>
+// void HashTable<KeyType, ValueType>::insert(KeyType key, ValueType value) {
+//     size_t index = hash(key);
+//     Node* newNode = createNode(key, value);
+//     if (newNode == nullptr) {
+//         std::cerr << "Failed to insert key-value pair. Memory allocation error." << std::endl;
+//         exit(EXIT_FAILURE);
+//     }
+//
+//     newNode->next = table[index];
+//     table[index] = newNode;
+// }
 
-template <typename KeyType, typename ValueType>
-typename HashTable<KeyType, ValueType>::Node*
-HashTable<KeyType, ValueType>::createNode(KeyType key, ValueType value) {
-    Node* newNode = new Node;
-    newNode->key = key;
-    newNode->value = value;
-    newNode->next = nullptr;
-    return newNode;
-}
+// template <typename KeyType, typename ValueType>
+// bool HashTable<KeyType, ValueType>::get(KeyType key, ValueType& value) {
+//     size_t index = hash(key);
+//     Node* current = table[index];
+//
+//     while (current != nullptr) {
+//         if (current->key == key) {
+//             value = current->value;
+//             return true;  // Success
+//         }
+//         current = current->next;
+//     }
+//
+//     return false;  // Key not found
+// }
 
-template <typename KeyType, typename ValueType>
-size_t HashTable<KeyType, ValueType>::hash(KeyType key) {
-    return std::hash<KeyType>{}(key) % size;
-}
-
-template <typename KeyType, typename ValueType>
-void HashTable<KeyType, ValueType>::insert(KeyType key, ValueType value) {
-    size_t index = hash(key);
-    Node* newNode = createNode(key, value);
-    if (newNode == nullptr) {
-        std::cerr << "Failed to insert key-value pair. Memory allocation error." << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    newNode->next = table[index];
-    table[index] = newNode;
-}
-
-template <typename KeyType, typename ValueType>
-bool HashTable<KeyType, ValueType>::get(KeyType key, ValueType& value) {
-    size_t index = hash(key);
-    Node* current = table[index];
-
-    while (current != nullptr) {
-        if (current->key == key) {
-            value = current->value;
-            return true;  // Success
-        }
-        current = current->next;
-    }
-
-    return false;  // Key not found
-}
-
-template <typename KeyType, typename ValueType>
-void HashTable<KeyType, ValueType>::removeEntry(KeyType key) {
-    size_t index = hash(key);
-    Node* current = table[index];
-    Node* prev = nullptr;
-
-    while (current != nullptr) {
-        if (current->key == key) {
-            if (prev == nullptr) {
-                // Remove the first node
-                table[index] = current->next;
-            } else {
-                prev->next = current->next;
-            }
-            delete current;
-            return;
-        }
-        prev = current;
-        current = current->next;
-    }
-}
+// template <typename KeyType, typename ValueType>
+// void HashTable<KeyType, ValueType>::removeEntry(KeyType key) {
+//     size_t index = hash(key);
+//     Node* current = table[index];
+//     Node* prev = nullptr;
+//
+//     while (current != nullptr) {
+//         if (current->key == key) {
+//             if (prev == nullptr) {
+//                 // Remove the first node
+//                 table[index] = current->next;
+//             } else {
+//                 prev->next = current->next;
+//             }
+//             delete current;
+//             return;
+//         }
+//         prev = current;
+//         current = current->next;
+//     }
+// }
 
 #endif  // HASHTABLE_H
