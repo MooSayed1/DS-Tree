@@ -33,6 +33,7 @@ public:
 	{
 		return (a > b) ? a : b;
 	}
+	   
 
 	//help functions on deletions
 	AVLNode* InPre(AVLNode* p) {
