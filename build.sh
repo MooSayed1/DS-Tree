@@ -1,10 +1,10 @@
 #!/bin/sh
 
-# rm -rf .bulid
-mkdir .bulid -p
-cd .bulid
+# rm -rf .build
+mkdir .build -p
+cd .build
 
-#Genrate bulid folder
+#Genrate build folder
 cmake ../.
 #make, execute compile command
 make
