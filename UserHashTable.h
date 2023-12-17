@@ -1,17 +1,18 @@
-#ifndef HASHTABLE_H
-#define HASHTABLE_H
+#ifndef USERHASHTABLE_H
+#define USERHASHTABLE_H
 
 #include <cstddef>
 #include <iostream>
 #include <string>
-#include "AVLTree.h"
+// #include "AVLTree.h"
+#include "TemplateAvlTree.h"
 #include "DynamicArray.h"
 #include "LinkedList.h"
 #include "User.h"
 using namespace std;
 
 template <typename KeyType, typename ValueType>
-class HashTable {
+class UserHashTable {
 private:
     // Define the structure for a node in the hash table
     //     KeyType key;  // string if we use handel name or int if you want
@@ -19,17 +20,17 @@ private:
     // size_t size;
     // Node** table;
 
-    DynamicArray<AVLTred<User>>;
+    DynamicArray<AVLTree<User>>table;
     // Private member functions
     // Node* createNode(KeyType key, ValueType value);
     // size_t hash(KeyType key);
 
 public:
     // Constructor
-    HashTable(size_t size);
+    UserHashTable(size_t size);
 
     // Destructor
-    ~HashTable();
+    ~UserHashTable();
 
     // Member functions
     int hash_string(string str, int n) {
@@ -46,12 +47,12 @@ public:
 
 // Implementation of member functions
 // template <typename KeyType, typename ValueType>
-// HashTable<KeyType, ValueType>::HashTable(size_t size) : size(size) {
+// UserHashTable<KeyType, ValueType>::HashTable(size_t size) : size(size) {
 //     table = new Node*[size]();
 // }
 //
 // template <typename KeyType, typename ValueType>
-// HashTable<KeyType, ValueType>::~HashTable() {
+// UserHashTable<KeyType, ValueType>::~HashTable() {
 //     for (size_t i = 0; i < size; ++i) {
 //         Node* current = table[i];
 //         while (current != nullptr) {
@@ -64,8 +65,8 @@ public:
 // }
 //
 // template <typename KeyType, typename ValueType>
-// typename HashTable<KeyType, ValueType>::Node*
-// HashTable<KeyType, ValueType>::createNode(KeyType key, ValueType value) {
+// typename UserHashTable<KeyType, ValueType>::Node*
+// UserHashTable<KeyType, ValueType>::createNode(KeyType key, ValueType value) {
 //     Node* newNode = new Node;
 //     newNode->key = key;
 //     newNode->value = value;
@@ -73,12 +74,12 @@ public:
 //     return newNode;
 // }
 // template <typename KeyType, typename ValueType>
-// size_t HashTable<KeyType, ValueType>::hash(KeyType key) {
+// size_t UserHashTable<KeyType, ValueType>::hash(KeyType key) {
 //     return std::hash<KeyType>{}(key) % size;
 // }
 
 // template <typename KeyType, typename ValueType>
-// void HashTable<KeyType, ValueType>::insert(KeyType key, ValueType value) {
+// void UserHashTable<KeyType, ValueType>::insert(KeyType key, ValueType value) {
 //     size_t index = hash(key);
 //     Node* newNode = createNode(key, value);
 //     if (newNode == nullptr) {
@@ -91,7 +92,7 @@ public:
 // }
 
 // template <typename KeyType, typename ValueType>
-// bool HashTable<KeyType, ValueType>::get(KeyType key, ValueType& value) {
+// bool UserHashTable<KeyType, ValueType>::get(KeyType key, ValueType& value) {
 //     size_t index = hash(key);
 //     Node* current = table[index];
 //
@@ -107,7 +108,7 @@ public:
 // }
 
 // template <typename KeyType, typename ValueType>
-// void HashTable<KeyType, ValueType>::removeEntry(KeyType key) {
+// void UserHashTable<KeyType, ValueType>::removeEntry(KeyType key) {
 //     size_t index = hash(key);
 //     Node* current = table[index];
 //     Node* prev = nullptr;
@@ -128,4 +129,4 @@ public:
 //     }
 // }
 
-#endif  // HASHTABLE_H
+#endif  // UserHashTable_H
