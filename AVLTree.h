@@ -1,5 +1,6 @@
 #include<iostream>
 #include <queue>
+
 struct AVLNode
 {
 	int data;
@@ -48,8 +49,6 @@ public:
 		}
 		return p;
 	}
-
-
 
 	// For rotations
 	AVLNode* LLRotation(AVLNode* p) {
@@ -309,14 +308,5 @@ public:
 			}
 		}
 		return p;
-
-
-
-
-
 	}
-
-
-
-
 };

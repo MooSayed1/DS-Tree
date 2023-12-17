@@ -5,18 +5,21 @@
 #include <iostream>
 #include <string>
 #include "AVLTree.h"
+#include "DynamicArray.h"
 #include "LinkedList.h"
+#include "User.h"
 using namespace std;
 
 template <typename KeyType, typename ValueType>
 class HashTable {
 private:
     // Define the structure for a node in the hash table
-        KeyType key;  // string if we use handel name or int if you want
-        ValueType value;  // This Will be structer which we will use 
-    size_t size;
+    //     KeyType key;  // string if we use handel name or int if you want
+    //     ValueType value;  // This Will be structer which we will use 
+    // size_t size;
     // Node** table;
 
+    DynamicArray<AVLTred<User>>;
     // Private member functions
     // Node* createNode(KeyType key, ValueType value);
     // size_t hash(KeyType key);
