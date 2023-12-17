@@ -1,19 +1,21 @@
 #include<iostream>
 #include <queue>
 
+
+template<class T>
 struct AVLNode
 {
-	int data;
+	T data;
 	AVLNode* left;
 	AVLNode* right;
 	int height;
 };
-
+template<class T>
 class AVLTree {
 public:
-	AVLNode* root = NULL;
+	AVLNode<T>* root = NULL;
 	// Unit of help functions for insertion and deletion
-	int GetHight(AVLNode* p) {
+	int GetHight(AVLNode<T>* p) {
 		int hl, hr;
 		hl = (p && p->left) ? p->left->height : 0;
 		hr = (p && p->right) ? p->right->height : 0;
@@ -22,7 +24,7 @@ public:
 
 		// Note we get the hight by calc the backwards hights make the max and + 1 to the new level
 	}
-	int getbalance(AVLNode* node) {
+	int getbalance(AVLNode<T>* node) {
 		int hl, hr;
 		hl = node && node->left ? node->left->height : 0;
 		hr = node && node->right ? node->right->height : 0;
@@ -37,13 +39,13 @@ public:
 	   
 
 	//help functions on deletions
-	AVLNode* InPre(AVLNode* p) {
+	AVLNode<T>* InPre(AVLNode<T>* p) {
 		while (p && p->right != nullptr) {
 			p = p->right;
 		}
 		return p;
 	}
-	AVLNode* InSucc(AVLNode* p) {
+	AVLNode<T>* InSucc(AVLNode<T>* p) {
 		while (p && p->left != nullptr) {
 			p = p->left;
 		}
@@ -51,10 +53,10 @@ public:
 	}
 
 	// For rotations
-	AVLNode* LLRotation(AVLNode* p) {
+	AVLNode<T>* LLRotation(AVLNode<T>* p) {
 		// p is a node that is impalance
-		AVLNode* left_p = p->left; // this node will be the parent "root" 
-		AVLNode* right_left_p = p->left->right; // will be the left of p"root"
+		AVLNode<T>* left_p = p->left; // this node will be the parent "root" 
+		AVLNode<T>* right_left_p = p->left->right; // will be the left of p"root"
 
 		p->left = right_left_p;
 		left_p->right = p;
@@ -69,13 +71,13 @@ public:
 
 		return left_p; // new root
 	}
-	AVLNode* LRRotation(AVLNode* p)
+	AVLNode<T>* LRRotation(AVLNode<T>* p)
 	{
 		// 4 assin links should be done 
 		int lbf, rbf;
 
-		AVLNode* pl = p->left;
-		AVLNode* plr = pl->right;
+		AVLNode<T>* pl = p->left;
+		AVLNode<T>* plr = pl->right;
 
 		p->left = plr->right;
 		pl->right = plr->left;
@@ -92,9 +94,9 @@ public:
 		return plr;
 	}
 
-	AVLNode* RRRotation(AVLNode* p) {
-		AVLNode* pr = p->right;
-		AVLNode* prl = pr->left;
+	AVLNode<T>* RRRotation(AVLNode<T>* p) {
+		AVLNode<T>* pr = p->right;
+		AVLNode<T>* prl = pr->left;
 
 		pr->left = p;
 		p->right = prl;
@@ -109,9 +111,9 @@ public:
 		}
 		return pr;
 	}
-	AVLNode* RLRotation(AVLNode* p) {
-		AVLNode* pr = p->right;
-		AVLNode* prl = pr->left;
+	AVLNode<T>* RLRotation(AVLNode<T>* p) {
+		AVLNode<T>* pr = p->right;
+		AVLNode<T>* prl = pr->left;
 
 		pr->left = prl->right;
 		p->right = prl->left;
@@ -134,7 +136,7 @@ public:
 
 
 	// For Display
-	void preOrder(AVLNode* root)
+	void preOrder(AVLNode<T>* root)
 	{
 		if (root != NULL)
 		{
@@ -143,8 +145,8 @@ public:
 			preOrder(root->right);
 		}
 	}
-	void Levelorder(AVLNode* p) {
-		std::queue<AVLNode*> q;
+	void Levelorder(AVLNode<T>* p) {
+		std::queue<AVLNode<T>*> q;
 		std::cout << p->data << " ";
 		q.push(p);
 		while (!q.empty()) {
@@ -161,7 +163,7 @@ public:
 
 		}
 	}
-	void Inorder(AVLNode* p) {
+	void Inorder(AVLNode<T>* p) {
 		if (p) {
 			Inorder(p->left);
 			std::cout << p->data << ", ";
@@ -170,10 +172,10 @@ public:
 	}
 
 
-	AVLNode* insert(AVLNode* node, int key)
+	AVLNode<T>* insert(AVLNode<T>* node, int key)
 	{
 		/*normal BST insertion*/
-		AVLNode* t = NULL;
+		AVLNode<T>* t = NULL;
 		if (node == NULL) {
 			t = new AVLNode;
 			t->data = key;
@@ -240,7 +242,7 @@ public:
 		}
 		return node;
 	}
-	AVLNode* Delete(AVLNode* p, int key) {
+	AVLNode<T>* Delete(AVLNode<T>* p, int key) {
 		if (p == nullptr) {
 			return nullptr;
 		}
@@ -263,7 +265,7 @@ public:
 		// untill here we dont found the key
 		else { // oh we found the node which be deleted 
 			// the avl tree work start from here 
-			AVLNode* q;
+			AVLNode<T>* q;
 			if (GetHight(p->left) > GetHight(p->right)) {
 				q = InPre(p->left);
 				p->data = q->data;
@@ -304,7 +306,7 @@ public:
 			}
 			else if (key < p->right->data) {
 				//RL case
-				//return RLRotation();
+				return RLRotation(p);
 			}
 		}
 		return p;
