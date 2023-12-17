@@ -4,7 +4,8 @@ project(DS-Tree)
 
 add_library(main_lib
 	./AVLTree.cpp
-	
+	DynamicArray.cpp
+  hashTable.cpp
 )
 
 add_executable(main

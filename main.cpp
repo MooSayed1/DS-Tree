@@ -1,6 +1,6 @@
 #include<iostream>
 #include "AVLTree.h"
-
+#include "hashTable.h"
 using namespace std;
 int main()
 {
