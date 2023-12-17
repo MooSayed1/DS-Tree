@@ -3,14 +3,16 @@
 
 #include <string>
 #include <iostream>
+#include "Queue.h"
 using namespace std;
 
 class User {
 private:
     string name;
     string phone;
-		string handel;
+    string handel;
     int age;
+    Queue<string>activites; 
     int hashString(string str, int n); // This will Take 2 parameter str --> Handel Name and n --> Table Size 
 
 public:
