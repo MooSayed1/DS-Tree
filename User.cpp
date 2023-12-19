@@ -11,6 +11,7 @@ void User::displayInfo() const {
 }
 
 int User::getHash(string str, int n) { return hashString(str, n); }
+string User::getHandel() { return this->handel; }
 
 int hashString(string str, int n) {
   long long nn = n;

@@ -4,7 +4,8 @@
 #include <string>
 #include <iostream>
 #include "Queue.h"
-using namespace std;
+using std::string ;
+using std::cout ;
 
 class User {
 private:
@@ -20,6 +21,7 @@ public:
 		User():name("UNKOWN"),phone("UNKOWN"),handel(""),age(0){}
     void displayInfo() const;
     int getHash(string str, int n);
+    string getHandel();
 
 };
 
