@@ -1,21 +1,20 @@
 #include<iostream>
 #include <queue>
+#include "User.h"
 
 
-template<class T>
 struct AVLNode
 {
-	T data;
+	User data;
 	AVLNode* left;
 	AVLNode* right;
 	int height;
 };
-template<class T>
 class AVLTree {
 public:
-	AVLNode<T>* root = NULL;
+	AVLNode* root = NULL;
 	// Unit of help functions for insertion and deletion
-	int GetHight(AVLNode<T>* p) {
+	int GetHight(AVLNode* p) {
 		int hl, hr;
 		hl = (p && p->left) ? p->left->height : 0;
 		hr = (p && p->right) ? p->right->height : 0;
@@ -24,7 +23,7 @@ public:
 
 		// Note we get the hight by calc the backwards hights make the max and + 1 to the new level
 	}
-	int getbalance(AVLNode<T>* node) {
+	int getbalance(AVLNode* node) {
 		int hl, hr;
 		hl = node && node->left ? node->left->height : 0;
 		hr = node && node->right ? node->right->height : 0;
@@ -39,13 +38,13 @@ public:
 	   
 
 	//help functions on deletions
-	AVLNode<T>* InPre(AVLNode<T>* p) {
+	AVLNode* InPre(AVLNode* p) {
 		while (p && p->right != nullptr) {
 			p = p->right;
 		}
 		return p;
 	}
-	AVLNode<T>* InSucc(AVLNode<T>* p) {
+	AVLNode* InSucc(AVLNode* p) {
 		while (p && p->left != nullptr) {
 			p = p->left;
 		}
@@ -53,10 +52,10 @@ public:
 	}
 
 	// For rotations
-	AVLNode<T>* LLRotation(AVLNode<T>* p) {
+	AVLNode* LLRotation(AVLNode* p) {
 		// p is a node that is impalance
-		AVLNode<T>* left_p = p->left; // this node will be the parent "root" 
-		AVLNode<T>* right_left_p = p->left->right; // will be the left of p"root"
+		AVLNode* left_p = p->left; // this node will be the parent "root" 
+		AVLNode* right_left_p = p->left->right; // will be the left of p"root"
 
 		p->left = right_left_p;
 		left_p->right = p;
@@ -71,13 +70,13 @@ public:
 
 		return left_p; // new root
 	}
-	AVLNode<T>* LRRotation(AVLNode<T>* p)
+	AVLNode* LRRotation(AVLNode* p)
 	{
 		// 4 assin links should be done 
 		int lbf, rbf;
 
-		AVLNode<T>* pl = p->left;
-		AVLNode<T>* plr = pl->right;
+		AVLNode* pl = p->left;
+		AVLNode* plr = pl->right;
 
 		p->left = plr->right;
 		pl->right = plr->left;
@@ -94,9 +93,9 @@ public:
 		return plr;
 	}
 
-	AVLNode<T>* RRRotation(AVLNode<T>* p) {
-		AVLNode<T>* pr = p->right;
-		AVLNode<T>* prl = pr->left;
+	AVLNode* RRRotation(AVLNode* p) {
+		AVLNode* pr = p->right;
+		AVLNode* prl = pr->left;
 
 		pr->left = p;
 		p->right = prl;
@@ -111,9 +110,9 @@ public:
 		}
 		return pr;
 	}
-	AVLNode<T>* RLRotation(AVLNode<T>* p) {
-		AVLNode<T>* pr = p->right;
-		AVLNode<T>* prl = pr->left;
+	AVLNode* RLRotation(AVLNode* p) {
+		AVLNode* pr = p->right;
+		AVLNode* prl = pr->left;
 
 		pr->left = prl->right;
 		p->right = prl->left;
@@ -136,59 +135,59 @@ public:
 
 
 	// For Display
-	void preOrder(AVLNode<T>* root)
+	void preOrder(AVLNode* root)
 	{
 		if (root != NULL)
 		{
-			std::cout << root->data << " ";
+			std::cout << root->data.getHandel() << " ";
 			preOrder(root->left);
 			preOrder(root->right);
 		}
 	}
-	void Levelorder(AVLNode<T>* p) {
-		std::queue<AVLNode<T>*> q;
-		std::cout << p->data << " ";
+	void Levelorder(AVLNode* p) {
+		std::queue<AVLNode*> q;
+		std::cout << p->data.getHandel() << " ";
 		q.push(p);
 		while (!q.empty()) {
 			p = q.front();
 			q.pop();
 			if (p->left) {
-				std::cout << p->left->data << " ";
+				std::cout << p->left->data.getHandel() << " ";
 				q.push(p->left);
 			}
 			if (p->right) {
-				std::cout << p->right->data << " ";
+				std::cout << p->right->data.getHandel()  << " ";
 				q.push(p->right);
 			}
 
 		}
 	}
-	void Inorder(AVLNode<T>* p) {
+	void Inorder(AVLNode* p) {
 		if (p) {
 			Inorder(p->left);
-			std::cout << p->data << ", ";
+			std::cout << p->data.getHandel()  << ", ";
 			Inorder(p->right);
 		}
 	}
 
 
-	AVLNode<T>* insert(AVLNode<T>* node, int key)
+	AVLNode* insert(AVLNode* node, string key)
 	{
 		/*normal BST insertion*/
-		AVLNode<T>* t = NULL;
+		AVLNode* t = NULL;
 		if (node == NULL) {
 			t = new AVLNode;
-			t->data = key;
+			t->data.getHandel()  = key;
 			t->height = 1;
 			t->left = t->right = NULL;
 			return t; // return the created node to assign the suit position 
 		}
-		if (key < node->data) {
+		if (key < node->data.getHandel() ) {
 			// go to the left
 			//cout << key << "   ";
 			node->left = insert(node->left, key);
 		}
-		else if (key > node->data) {
+		else if (key > node->data.getHandel() ) {
 			// right 
 			// note : insert rerurn an created new node :
 			node->right = insert(node->right, key);
@@ -220,29 +219,29 @@ public:
 		*/
 		if (balanceFactor > 1) {
 			// mean this node what i stand on it "impalance"
-			if (key < node->left->data) {
+			if (key < node->left->data.getHandel() ) {
 				// we can do it (balance factor(node) == 2 && balance factor(node->left) == 1)
 				// LL case 
 				return LLRotation(node);
 			}
-			else if (key > node->left->data) {
+			else if (key > node->left->data.getHandel() ) {
 				// LR case
 				return LRRotation(node);
 			}
 		}
 		else if (balanceFactor < -1) {
-			if (key > node->right->data) {
+			if (key > node->right->data.getHandel() ) {
 				//RR case 
 				return RRRotation(node);
 			}
-			else if (key < node->right->data) {
+			else if (key < node->right->data.getHandel() ) {
 				//RL case
 				//return RLRotation();
 			}
 		}
 		return node;
 	}
-	AVLNode<T>* Delete(AVLNode<T>* p, int key) {
+	AVLNode* Delete(AVLNode* p, string key) {
 		if (p == nullptr) {
 			return nullptr;
 		}
@@ -256,25 +255,25 @@ public:
 			delete p;
 			return nullptr;
 		}
-		if (key < p->data) {
+		if (key < p->data.getHandel() ) {
 			p->left = Delete(p->left, key);
 		}
-		else if (key > p->data) {
+		else if (key > p->data.getHandel() ) {
 			p->right = Delete(p->right, key);
 		}
 		// untill here we dont found the key
 		else { // oh we found the node which be deleted 
 			// the avl tree work start from here 
-			AVLNode<T>* q;
+			AVLNode* q;
 			if (GetHight(p->left) > GetHight(p->right)) {
 				q = InPre(p->left);
 				p->data = q->data;
-				p->left = Delete(p->left, q->data);
+				p->left = Delete(p->left, q->data.getHandel() );
 			}
 			else {
 				q = InSucc(p->right);
 				p->data = q->data;
-				p->right = Delete(p->right, q->data);
+				p->right = Delete(p->right, q->data.getHandel() );
 			}
 		}
 
@@ -289,26 +288,28 @@ public:
 
 		if (balanceFactor > 1) {
 			// mean this node what i stand on it "impalance"
-			if (key < p->left->data) {
+			if (key < p->left->data.getHandel() ) {
 				// we can do it (balance factor(node) == 2 && balance factor(node->left) == 1)
 				// LL case 
 				return LLRotation(p);
 			}
-			else if (key > p->left->data) {
+			else if (key > p->left->data.getHandel() ) {
 				// LR case
 				return LRRotation(p);
 			}
 		}
 		else if (balanceFactor < -1) {
-			if (key > p->right->data) {
+			if (key > p->right->data.getHandel() ) {
 				//RR case 
 				return RRRotation(p);
 			}
-			else if (key < p->right->data) {
+			else if (key < p->right->data.getHandel() ) {
 				//RL case
 				return RLRotation(p);
 			}
 		}
 		return p;
 	}
+
+	
 };
