@@ -172,7 +172,7 @@ public:
 	}
 
 
-	AVLNode<T>* insert(AVLNode<T>* node, int key)
+	AVLNode<T>* insert(AVLNode<T>* node, T key)
 	{
 		/*normal BST insertion*/
 		AVLNode<T>* t = NULL;
@@ -242,7 +242,7 @@ public:
 		}
 		return node;
 	}
-	AVLNode<T>* Delete(AVLNode<T>* p, int key) {
+	AVLNode<T>* Delete(AVLNode<T>* p, T key) {
 		if (p == nullptr) {
 			return nullptr;
 		}
@@ -310,5 +310,16 @@ public:
 			}
 		}
 		return p;
+	}
+	AVLNode<T>* search(AVLNode<T>* root, T key)
+	{
+		if (root == NULL || root->data == key)
+			return root;
+
+		if (root->data < key)
+			return search(root->right, key);
+
+		// Key is smaller than root's key
+		return search(root->left, key);
 	}
 };
