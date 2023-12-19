@@ -171,7 +171,7 @@ public:
 	}
 
 
-	AVLNode* insert(AVLNode* node, int key)
+	AVLNode* insert(AVLNode* node, string key)
 	{
 		/*normal BST insertion*/
 		AVLNode* t = NULL;
@@ -241,7 +241,7 @@ public:
 		}
 		return node;
 	}
-	AVLNode* Delete(AVLNode* p, int key) {
+	AVLNode* Delete(AVLNode* p, string key) {
 		if (p == nullptr) {
 			return nullptr;
 		}
@@ -310,13 +310,14 @@ public:
 		}
 		return p;
 	}
-	AVLNode* search(AVLNode* root, int key)
+
+	AVLNode* search(AVLNode* root, string key)
 	{
-		if (root == NULL || root->data == key)
+		if (root == NULL || root->data.getHandel() == key)
 			return root;
 
 		// Key is greater than root's key
-		if (root->data < key)
+		if (root->data.getHandel() < key)
 			return search(root->right, key);
 
 		// Key is smaller than root's key
