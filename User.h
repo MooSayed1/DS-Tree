@@ -14,13 +14,11 @@ private:
     string handel;
     int age;
     Queue<string>activites; 
-    int hashString(string str, int n); // This will Take 2 parameter str --> Handel Name and n --> Table Size 
 
 public:
     User(const string& name, const string& phone,const string & handel, int age);
 		User():name("UNKOWN"),phone("UNKOWN"),handel(""),age(0){}
     void displayInfo() const;
-    int getHash(string str, int n);
     string getHandel()const;
 
 };

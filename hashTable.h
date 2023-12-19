@@ -1,131 +1,115 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 
-#include <cstddef>
-#include <iostream>
-#include <string>
-#include "AVLTree.h"
-#include "DynamicArray.h"
-#include "LinkedList.h"
 #include "User.h"
-using namespace std;
+#include "AVLTree.h"
+#pragma once
 
-template <typename KeyType, typename ValueType>
-class HashTable {
-private:
-    // Define the structure for a node in the hash table
-    //     KeyType key;  // string if we use handel name or int if you want
-    //     ValueType value;  // This Will be structer which we will use 
-    // size_t size;
-    // Node** table;
 
-    DynamicArray<AVLTred<User>>;
-    // Private member functions
-    // Node* createNode(KeyType key, ValueType value);
-    // size_t hash(KeyType key);
-
+class HashTable
+{
 public:
-    // Constructor
-    HashTable(size_t size);
-
-    // Destructor
-    ~HashTable();
-
-    // Member functions
-    int hash_string(string str, int n) {
-        long long nn = n;
-        long long sum = 0;
-        for (int i = 0; i < (int) str.size(); ++i)
-            sum = (sum * 26 + str[i] - 'a') % nn;
-        return sum % nn;
-    }
-    void insert(KeyType key, ValueType value);
-    bool get(KeyType key, ValueType& value);
-    void removeEntry(KeyType key);
+	HashTable(); //default constructor
+	HashTable(int); //one parameter constructor
+	~HashTable(); //destructor
+	bool insert(const User&);
+	bool remove(const User&);
+	User* search(const User&) const;
+	int size() const; //return numOfItems
+	int maxSize() const; //return arrSize
+ 
+private:
+	AVLTree* arr;
+	int arrSize;
+	int numOfItems;
+	int hashFunc(const string&) const;
+	int getPrime(int) const;
+	bool isPrime(int) const;
 };
 
-// Implementation of member functions
-// template <typename KeyType, typename ValueType>
-// HashTable<KeyType, ValueType>::HashTable(size_t size) : size(size) {
-//     table = new Node*[size]();
-// }
-//
-// template <typename KeyType, typename ValueType>
-// HashTable<KeyType, ValueType>::~HashTable() {
-//     for (size_t i = 0; i < size; ++i) {
-//         Node* current = table[i];
-//         while (current != nullptr) {
-//             Node* next = current->next;
-//             delete current;
-//             current = next;
-//         }
-//     }
-//     delete[] table;
-// }
-//
-// template <typename KeyType, typename ValueType>
-// typename HashTable<KeyType, ValueType>::Node*
-// HashTable<KeyType, ValueType>::createNode(KeyType key, ValueType value) {
-//     Node* newNode = new Node;
-//     newNode->key = key;
-//     newNode->value = value;
-//     newNode->next = nullptr;
-//     return newNode;
-// }
-// template <typename KeyType, typename ValueType>
-// size_t HashTable<KeyType, ValueType>::hash(KeyType key) {
-//     return std::hash<KeyType>{}(key) % size;
-// }
 
-// template <typename KeyType, typename ValueType>
-// void HashTable<KeyType, ValueType>::insert(KeyType key, ValueType value) {
-//     size_t index = hash(key);
-//     Node* newNode = createNode(key, value);
-//     if (newNode == nullptr) {
-//         std::cerr << "Failed to insert key-value pair. Memory allocation error." << std::endl;
-//         exit(EXIT_FAILURE);
-//     }
-//
-//     newNode->next = table[index];
-//     table[index] = newNode;
-// }
+inline int HashTable::hashFunc(const string& s) const //hash function (utilizes horner's method to prevent overflow on large strings)
+{
+	int hashVal=0,asc;
+	for(int i=0;i<s.size();i++)
+	{
+		asc=s[i]>96?s[i]-96:s[i]-64;
+		hashVal=(hashVal*32+asc)%arrSize;
+	}
+	return hashVal;
+}
 
-// template <typename KeyType, typename ValueType>
-// bool HashTable<KeyType, ValueType>::get(KeyType key, ValueType& value) {
-//     size_t index = hash(key);
-//     Node* current = table[index];
-//
-//     while (current != nullptr) {
-//         if (current->key == key) {
-//             value = current->value;
-//             return true;  // Success
-//         }
-//         current = current->next;
-//     }
-//
-//     return false;  // Key not found
-// }
+inline int HashTable::getPrime(int n) const //return the smallest prime number >= 2*n
+{
+	int i=2*n;
+	while(!isPrime(i))
+		i++;
+	return i;
+}
 
-// template <typename KeyType, typename ValueType>
-// void HashTable<KeyType, ValueType>::removeEntry(KeyType key) {
-//     size_t index = hash(key);
-//     Node* current = table[index];
-//     Node* prev = nullptr;
-//
-//     while (current != nullptr) {
-//         if (current->key == key) {
-//             if (prev == nullptr) {
-//                 // Remove the first node
-//                 table[index] = current->next;
-//             } else {
-//                 prev->next = current->next;
-//             }
-//             delete current;
-//             return;
-//         }
-//         prev = current;
-//         current = current->next;
-//     }
-// }
+inline bool HashTable::isPrime(int n) const //check whether n is prime, helper function for getPrime()
+{
+	bool isPrime=true;
+		for(int count=2;count<n && isPrime; count++)
+			if(n%count==0)
+				isPrime=false;
+	return isPrime;
+}
+
+
+
+
+inline HashTable::HashTable() //default constructor
+{
+	arrSize=101;
+	arr=new AVLTree[arrSize];
+	numOfItems=0;
+}
+
+inline HashTable::HashTable(int n) //creates a hash table to store n items where the size of the array is the smallest prime number >= 2*n
+{
+	arrSize=getPrime(n);
+	arr=new AVLTree[arrSize];
+	numOfItems=0;
+}
+
+inline HashTable::~HashTable() //destructor
+{
+	delete[] arr;
+}
+
+
+inline bool HashTable::insert(const User& s) //inserts string s if it doesn't exist in the hash table and returns 1 if insertion successful, 0 otherwise
+{
+	int hash=hashFunc(s.getHandel());
+	bool successOrFail=arr[hash].insert(arr[hash].GetRoot(),s);
+	numOfItems++;
+	return successOrFail;
+}
+
+inline bool HashTable::remove(const User& s) //removes string s if s exist in the hash table and returns 1 if removal successful, 0 otherwise
+{
+	int hash=hashFunc(s.getHandel());
+	bool successOrFail=arr[hash].remove(arr[hash].GetRoot(),s);
+	numOfItems--;
+	return successOrFail;
+}
+
+inline User* HashTable::search(const User& s) const //returns 1 if s exist in the hash table, 0 otherwise
+{
+	int hash=hashFunc(s.getHandel());
+	arr[hash].search(arr[hash].GetRoot(),s);
+	return 	&arr[hash].search(arr[hash].GetRoot(),s)->data;
+}
+
+inline int HashTable::size() const //returns numOfItems
+{
+	return numOfItems;
+}
+
+inline int HashTable::maxSize() const //returns arrSize
+{
+	return arrSize;
+}
 
 #endif  // HASHTABLE_H

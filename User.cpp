@@ -9,13 +9,5 @@ void User::displayInfo() const {
   cout << "Name: " << name << "\nPhone: " << phone << "\nAge: " << age << endl;
 }
 
-int User::getHash(string str, int n) { return hashString(str, n); }
 string User::getHandel()const { return this->handel; }
 
-int hashString(string str, int n) {
-  long long nn = n;
-  long long sum = 0;
-  for (int i = 0; i < (int)str.size(); ++i)
-    sum = (sum * 26 + str[i] - 'a') % nn;
-  return sum % nn;
-}

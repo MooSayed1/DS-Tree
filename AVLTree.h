@@ -245,7 +245,7 @@ public:
 		}
 		return node;
 	}
-	AVLNode* Delete(AVLNode* p, User key) {
+	AVLNode* remove(AVLNode* p, User key) {
 		if (p == nullptr) {
 			return nullptr;
 		}
@@ -260,10 +260,10 @@ public:
 			return nullptr;
 		}
 		if (key.getHandel() < p->data.getHandel() ) {
-			p->left = Delete(p->left, key);
+			p->left = remove(p->left, key);
 		}
 		else if (key.getHandel() > p->data.getHandel() ) {
-			p->right = Delete(p->right, key);
+			p->right = remove(p->right, key);
 		}
 		// untill here we dont found the key
 		else { // oh we found the node which be deleted 
@@ -272,12 +272,12 @@ public:
 			if (GetHight(p->left) > GetHight(p->right)) {
 				q = InPre(p->left);
 				p->data = q->data;
-				p->left = Delete(p->left, q->data );
+				p->left = remove(p->left, q->data );
 			}
 			else {
 				q = InSucc(p->right);
 				p->data = q->data;
-				p->right = Delete(p->right, q->data );
+				p->right = remove(p->right, q->data );
 			}
 		}
 
