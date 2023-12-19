@@ -84,7 +84,7 @@ public:
         T* brr = new T[new_capacity];
         for (int i=0; i< size; i++)
             brr[i] = arr[(read+i)%capacity];
-            delete [] arr;
+        delete [] arr;
         arr = brr;
         capacity = new_capacity;
         read = 0; write = size;

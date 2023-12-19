@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include "Queue.h"
+#include "Activity.h"
 using std::string ;
 using std::cout ;
 
@@ -13,7 +14,7 @@ private:
     string phone;
     string handel;
     int age;
-    Queue<string>activites; 
+    Queue<Activity>activites; 
 
 public:
     User(const string& name, const string& phone,const string & handel, int age);
