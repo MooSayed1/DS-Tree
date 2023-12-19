@@ -14,6 +14,9 @@ struct AVLNode
 class AVLTree {
 public:
 	AVLNode* root = NULL;
+  AVLNode* GetRoot(){
+  return root;
+	}
 	// Unit of help functions for insertion and deletion
 	int GetHight(AVLNode* p) {
 		int hl, hr;
