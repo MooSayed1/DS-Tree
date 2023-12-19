@@ -9,6 +9,7 @@ struct AVLNode
 	AVLNode* left;
 	AVLNode* right;
 	int height;
+
 };
 class AVLTree {
 public:
@@ -171,23 +172,23 @@ public:
 	}
 
 
-	AVLNode* insert(AVLNode* node, string key)
+	AVLNode* insert(AVLNode* node, User key)
 	{
 		/*normal BST insertion*/
 		AVLNode* t = NULL;
 		if (node == NULL) {
 			t = new AVLNode;
-			t->data.getHandel()  = key;
+			t->data.getHandel()  = key.getHandel();
 			t->height = 1;
 			t->left = t->right = NULL;
 			return t; // return the created node to assign the suit position 
 		}
-		if (key < node->data.getHandel() ) {
+		if (key.getHandel() < node->data.getHandel() ) {
 			// go to the left
 			//cout << key << "   ";
 			node->left = insert(node->left, key);
 		}
-		else if (key > node->data.getHandel() ) {
+		else if (key.getHandel() > node->data.getHandel() ) {
 			// right 
 			// note : insert rerurn an created new node :
 			node->right = insert(node->right, key);
@@ -219,29 +220,29 @@ public:
 		*/
 		if (balanceFactor > 1) {
 			// mean this node what i stand on it "impalance"
-			if (key < node->left->data.getHandel() ) {
+			if (key.getHandel() < node->left->data.getHandel() ) {
 				// we can do it (balance factor(node) == 2 && balance factor(node->left) == 1)
 				// LL case 
 				return LLRotation(node);
 			}
-			else if (key > node->left->data.getHandel() ) {
+			else if (key.getHandel() > node->left->data.getHandel() ) {
 				// LR case
 				return LRRotation(node);
 			}
 		}
 		else if (balanceFactor < -1) {
-			if (key > node->right->data.getHandel() ) {
+			if (key.getHandel() > node->right->data.getHandel() ) {
 				//RR case 
 				return RRRotation(node);
 			}
-			else if (key < node->right->data.getHandel() ) {
+			else if (key.getHandel() < node->right->data.getHandel() ) {
 				//RL case
 				//return RLRotation();
 			}
 		}
 		return node;
 	}
-	AVLNode* Delete(AVLNode* p, string key) {
+	AVLNode* Delete(AVLNode* p, User key) {
 		if (p == nullptr) {
 			return nullptr;
 		}
@@ -255,10 +256,10 @@ public:
 			delete p;
 			return nullptr;
 		}
-		if (key < p->data.getHandel() ) {
+		if (key.getHandel() < p->data.getHandel() ) {
 			p->left = Delete(p->left, key);
 		}
-		else if (key > p->data.getHandel() ) {
+		else if (key.getHandel() > p->data.getHandel() ) {
 			p->right = Delete(p->right, key);
 		}
 		// untill here we dont found the key
@@ -268,12 +269,12 @@ public:
 			if (GetHight(p->left) > GetHight(p->right)) {
 				q = InPre(p->left);
 				p->data = q->data;
-				p->left = Delete(p->left, q->data.getHandel() );
+				p->left = Delete(p->left, q->data );
 			}
 			else {
 				q = InSucc(p->right);
 				p->data = q->data;
-				p->right = Delete(p->right, q->data.getHandel() );
+				p->right = Delete(p->right, q->data );
 			}
 		}
 
@@ -288,22 +289,22 @@ public:
 
 		if (balanceFactor > 1) {
 			// mean this node what i stand on it "impalance"
-			if (key < p->left->data.getHandel() ) {
+			if (key.getHandel() < p->left->data.getHandel() ) {
 				// we can do it (balance factor(node) == 2 && balance factor(node->left) == 1)
 				// LL case 
 				return LLRotation(p);
 			}
-			else if (key > p->left->data.getHandel() ) {
+			else if (key.getHandel() > p->left->data.getHandel() ) {
 				// LR case
 				return LRRotation(p);
 			}
 		}
 		else if (balanceFactor < -1) {
-			if (key > p->right->data.getHandel() ) {
+			if (key.getHandel() > p->right->data.getHandel() ) {
 				//RR case 
 				return RRRotation(p);
 			}
-			else if (key < p->right->data.getHandel() ) {
+			else if (key.getHandel() < p->right->data.getHandel() ) {
 				//RL case
 				return RLRotation(p);
 			}
@@ -311,13 +312,13 @@ public:
 		return p;
 	}
 
-	AVLNode* search(AVLNode* root, string key)
+	AVLNode* search(AVLNode* root, User key)
 	{
-		if (root == NULL || root->data.getHandel() == key)
+		if (root == NULL || root->data.getHandel() == key.getHandel())
 			return root;
 
 		// Key is greater than root's key
-		if (root->data.getHandel() < key)
+		if (root->data.getHandel() < key.getHandel())
 			return search(root->right, key);
 
 		// Key is smaller than root's key

@@ -21,7 +21,7 @@ public:
 		User():name("UNKOWN"),phone("UNKOWN"),handel(""),age(0){}
     void displayInfo() const;
     int getHash(string str, int n);
-    string getHandel();
+    string getHandel()const;
 
 };
 

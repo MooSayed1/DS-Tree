@@ -1,5 +1,4 @@
 #include "User.h"
-#include <functional>
 #include <iostream>
 
 User::User(const string &name, const string &phone, const string &handel,
@@ -11,7 +10,7 @@ void User::displayInfo() const {
 }
 
 int User::getHash(string str, int n) { return hashString(str, n); }
-string User::getHandel() { return this->handel; }
+string User::getHandel()const { return this->handel; }
 
 int hashString(string str, int n) {
   long long nn = n;
