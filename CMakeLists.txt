@@ -3,9 +3,9 @@ cmake_minimum_required(VERSION 3.5)
 project(DS-Tree)
 
 add_library(main_lib
-	./AVLTree.cpp
-	DynamicArray.cpp
-  hashTable.cpp
+	AVLTree.cpp
+	hashTable.cpp
+	User.cpp
 )
 
 add_executable(main
@@ -18,7 +18,7 @@ target_compile_options(main PRIVATE -std=c++11 -Wall -Wextra -pedantic)
 
 link_libraries(
 	main
-	PRIVATE 
+	PRIVATE
 	main_lib
 
 )
