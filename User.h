@@ -4,7 +4,9 @@
 #include <string>
 #include <iostream>
 #include "Queue.h"
-using namespace std;
+#include "Activity.h"
+using std::string ;
+using std::cout ;
 
 class User {
 private:
@@ -12,14 +14,13 @@ private:
     string phone;
     string handel;
     int age;
-    Queue<string>activites; 
-    int hashString(string str, int n); // This will Take 2 parameter str --> Handel Name and n --> Table Size 
+    Queue<Activity>activites; 
 
 public:
     User(const string& name, const string& phone,const string & handel, int age);
 		User():name("UNKOWN"),phone("UNKOWN"),handel(""),age(0){}
     void displayInfo() const;
-    int getHash(string str, int n);
+    string getHandel()const;
 
 };
 

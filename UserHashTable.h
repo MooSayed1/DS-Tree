@@ -1,6 +1,7 @@
 #ifndef USERHASHTABLE_H
 #define USERHASHTABLE_H
 
+<<<<<<< HEAD:UserHashTable.h
 #include <cstddef>
 #include <iostream>
 #include <string>
@@ -8,9 +9,13 @@
 #include "TemplateAvlTree.h"
 #include "DynamicArray.h"
 #include "LinkedList.h"
+=======
+#include "AVLTree.h"
+>>>>>>> refs/remotes/origin/main:hashTable.h
 #include "User.h"
-using namespace std;
+#pragma once
 
+<<<<<<< HEAD:UserHashTable.h
 template <typename KeyType, typename ValueType>
 class UserHashTable {
 private:
@@ -130,3 +135,26 @@ public:
 // }
 
 #endif  // UserHashTable_H
+=======
+class HashTable {
+public:
+  HashTable();    // default constructor
+  HashTable(int); // one parameter constructor
+  ~HashTable();   // destructor
+  bool insert(const User &);
+  bool remove(const User &);
+  User *search(const User &) const;
+  int size() const;    // return numOfItems
+  int maxSize() const; // return arrSize
+
+private:
+  AVLTree *arr;
+  int arrSize;
+  int numOfItems;
+  int hashFunc(const string &) const;
+  int getPrime(int) const;
+  bool isPrime(int) const;
+};
+
+#endif // HASHTABLE_H
+>>>>>>> refs/remotes/origin/main:hashTable.h
