@@ -1,4 +1,5 @@
 #include "hashTable.h"
+#include <string>
 
 int HashTable::hashFunc(const string &s) const
 // hash function (utilizes horner's method to prevent
@@ -72,11 +73,19 @@ bool HashTable::remove(const User &s)
 }
 
 User *HashTable::search(const User &s) const
-// returns 1 if s exist in the hash table, 0 otherwise
+// returns user if s exist in the hash table, null otherwise
 {
   int hash = hashFunc(s.getHandel());
   arr[hash].search(arr[hash].GetRoot(), s);
-  return &arr[hash].search(arr[hash].GetRoot(), s)->data;
+  return arr[hash].search(arr[hash].GetRoot(), s)->data;
+}
+
+User *HashTable::search(const string&s) const
+// returns user if s exist in the hash table, null otherwise
+{
+  int hash = hashFunc(s);
+  arr[hash].search(arr[hash].GetRoot(), s);
+  return arr[hash].search(arr[hash].GetRoot(), s)->data;
 }
 
 int HashTable::size() const // returns numOfItems

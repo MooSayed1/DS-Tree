@@ -13,6 +13,7 @@ public:
   bool insert(const User &);
   bool remove(const User &);
   User *search(const User &) const;
+  User *search(const string &) const;
   int size() const;    // return numOfItems
   int maxSize() const; // return arrSize
 

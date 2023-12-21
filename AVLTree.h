@@ -7,7 +7,7 @@
 
 
 struct AVLNode {
-  User data;
+  User *data;
   AVLNode *left;
   AVLNode *right;
   int height;
@@ -52,6 +52,7 @@ public:
   AVLNode *remove(AVLNode *p, User key) ;
 
   AVLNode *search(AVLNode *root, User key) ;
+  AVLNode *search(AVLNode *root, string key) ;
 
 };
 #endif // AVLTREE_H

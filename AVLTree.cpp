@@ -118,24 +118,24 @@ AVLNode *AVLTree::RLRotation(AVLNode *p) {
 // For Display
 void AVLTree::preOrder(AVLNode *root) {
   if (root != NULL) {
-    std::cout << root->data.getHandel() << " ";
+    std::cout << root->data->getHandel() << " ";
     preOrder(root->left);
     preOrder(root->right);
   }
 }
 void AVLTree::Levelorder(AVLNode *p) {
   std::queue<AVLNode *> q;
-  std::cout << p->data.getHandel() << " ";
+  std::cout << p->data->getHandel() << " ";
   q.push(p);
   while (!q.empty()) {
     p = q.front();
     q.pop();
     if (p->left) {
-      std::cout << p->left->data.getHandel() << " ";
+      std::cout << p->left->data->getHandel() << " ";
       q.push(p->left);
     }
     if (p->right) {
-      std::cout << p->right->data.getHandel() << " ";
+      std::cout << p->right->data->getHandel() << " ";
       q.push(p->right);
     }
   }
@@ -143,7 +143,7 @@ void AVLTree::Levelorder(AVLNode *p) {
 void AVLTree::Inorder(AVLNode *p) {
   if (p) {
     Inorder(p->left);
-    std::cout << p->data.getHandel() << ", ";
+    std::cout << p->data->getHandel() << ", ";
     Inorder(p->right);
   }
 }
@@ -153,16 +153,16 @@ AVLNode *AVLTree::insert(AVLNode *node, User key) {
   AVLNode *t = NULL;
   if (node == NULL) {
     t = new AVLNode;
-    t->data.getHandel() = key.getHandel();
+    t->data->getHandel() = key.getHandel();
     t->height = 1;
     t->left = t->right = NULL;
     return t; // return the created node to assign the suit position
   }
-  if (key.getHandel() < node->data.getHandel()) {
+  if (key.getHandel() < node->data->getHandel()) {
     // go to the left
     // cout << key << "   ";
     node->left = insert(node->left, key);
-  } else if (key.getHandel() > node->data.getHandel()) {
+  } else if (key.getHandel() > node->data->getHandel()) {
     // right
     // note : insert rerurn an created new node :
     node->right = insert(node->right, key);
@@ -193,19 +193,19 @@ AVLNode *AVLTree::insert(AVLNode *node, User key) {
   */
   if (balanceFactor > 1) {
     // mean this node what i stand on it "impalance"
-    if (key.getHandel() < node->left->data.getHandel()) {
+    if (key.getHandel() < node->left->data->getHandel()) {
       // we can do it (balance factor(node) == 2 && balance factor(node->left)
       // == 1) LL case
       return LLRotation(node);
-    } else if (key.getHandel() > node->left->data.getHandel()) {
+    } else if (key.getHandel() > node->left->data->getHandel()) {
       // LR case
       return LRRotation(node);
     }
   } else if (balanceFactor < -1) {
-    if (key.getHandel() > node->right->data.getHandel()) {
+    if (key.getHandel() > node->right->data->getHandel()) {
       // RR case
       return RRRotation(node);
-    } else if (key.getHandel() < node->right->data.getHandel()) {
+    } else if (key.getHandel() < node->right->data->getHandel()) {
       // RL case
       // return RLRotation();
     }
@@ -226,9 +226,9 @@ AVLNode *AVLTree::remove(AVLNode *p, User key) {
     delete p;
     return nullptr;
   }
-  if (key.getHandel() < p->data.getHandel()) {
+  if (key.getHandel() < p->data->getHandel()) {
     p->left = remove(p->left, key);
-  } else if (key.getHandel() > p->data.getHandel()) {
+  } else if (key.getHandel() > p->data->getHandel()) {
     p->right = remove(p->right, key);
   }
   // untill here we dont found the key
@@ -238,11 +238,11 @@ AVLNode *AVLTree::remove(AVLNode *p, User key) {
     if (GetHight(p->left) > GetHight(p->right)) {
       q = InPre(p->left);
       p->data = q->data;
-      p->left = remove(p->left, q->data);
+      p->left = remove(p->left, *q->data);
     } else {
       q = InSucc(p->right);
       p->data = q->data;
-      p->right = remove(p->right, q->data);
+      p->right = remove(p->right, *q->data);
     }
   }
 
@@ -257,19 +257,19 @@ AVLNode *AVLTree::remove(AVLNode *p, User key) {
 
   if (balanceFactor > 1) {
     // mean this node what i stand on it "impalance"
-    if (key.getHandel() < p->left->data.getHandel()) {
+    if (key.getHandel() < p->left->data->getHandel()) {
       // we can do it (balance factor(node) == 2 && balance factor(node->left)
       // == 1) LL case
       return LLRotation(p);
-    } else if (key.getHandel() > p->left->data.getHandel()) {
+    } else if (key.getHandel() > p->left->data->getHandel()) {
       // LR case
       return LRRotation(p);
     }
   } else if (balanceFactor < -1) {
-    if (key.getHandel() > p->right->data.getHandel()) {
+    if (key.getHandel() > p->right->data->getHandel()) {
       // RR case
       return RRRotation(p);
-    } else if (key.getHandel() < p->right->data.getHandel()) {
+    } else if (key.getHandel() < p->right->data->getHandel()) {
       // RL case
       return RLRotation(p);
     }
@@ -278,11 +278,23 @@ AVLNode *AVLTree::remove(AVLNode *p, User key) {
 }
 
 AVLNode *AVLTree::search(AVLNode *root, User key) {
-  if (root == NULL || root->data.getHandel() == key.getHandel())
+  if (root == NULL || root->data->getHandel() == key.getHandel())
     return root;
 
   // Key is greater than root's key
-  if (root->data.getHandel() < key.getHandel())
+  if (root->data->getHandel() < key.getHandel())
+    return search(root->right, key);
+
+  // Key is smaller than root's key
+  return search(root->left, key);
+}
+
+AVLNode *AVLTree::search(AVLNode *root, string key) {
+  if (root == NULL || root->data->getHandel() == key)
+    return root;
+
+  // Key is greater than root's key
+  if (root->data->getHandel() < key)
     return search(root->right, key);
 
   // Key is smaller than root's key

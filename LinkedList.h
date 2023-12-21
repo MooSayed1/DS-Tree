@@ -1,6 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include <iostream>
+#include <iterator>
 using namespace std;
 
 template <typename T> struct node {
@@ -8,7 +9,7 @@ template <typename T> struct node {
   node *next;
   node *prev;
 
-  node(int value) : data(value) {}
+  node(T value) : data(value) {}
 
   node() : next(NULL), prev(NULL) {}
 };
@@ -23,7 +24,11 @@ private:
 public:
   linkedList() : size(0) {}
 
-  void insert(int value) {
+  int Size(){
+  return size;
+  }
+
+  void insert(T value) {
     node<T> *newNode = new node<T>(value);
     if (!size)
       head = tail = newNode;
@@ -45,7 +50,7 @@ public:
     }
   }
 
-  void pushfront(int value) {
+  void pushfront(T value) {
 
     node<T> *newNode = new node<T>(value);
 
@@ -61,7 +66,7 @@ public:
     ++size;
   }
 
-  void pushBack(int value) {
+  void pushBack(T value) {
 
     node<T> *newNode = new node<T>(value);
 
@@ -117,7 +122,7 @@ public:
     --size;
   }
 
-  void insert_at(int index, int value) {
+  void insert_at(int index, T value) {
 
     if (index == 0)
       pushfront(value);
@@ -146,7 +151,7 @@ public:
     }
   }
 
-  void remove_at(int value) {
+  void remove_at(T value) {
 
     node<T> *ptr = head;
     while (ptr->data != value && ptr) {
@@ -161,7 +166,7 @@ public:
     }
   }
 
-  void remove_atIndex(int index) {
+  void remove_atIndex(T index) {
     node<T> *temp = head;
     temp = head;
     while (index--) {
