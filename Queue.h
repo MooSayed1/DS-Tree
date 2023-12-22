@@ -13,6 +13,9 @@ private:
 
 public:
     // Constructor
+    Queue():capacity(10),read(0),write(0),size(0){
+        arr=new T[capacity];
+    }
     Queue(size_t initialCapacity = 10) {
         capacity = initialCapacity;
         arr = new T[capacity];
@@ -27,11 +30,6 @@ public:
 
     // Function to enqueue an element
     void enqueue(const T& element) {
-        if (isFull()) {
-            // Resize the array if full
-            resize();
-            // return;
-        }
         arr[write] = element;
         write = (write + 1) % capacity;
         size++;
@@ -77,19 +75,12 @@ public:
     size_t getSize() const {
         return size;
     }
+    
 
-    // Function to resize the array
-    void resize() {
-        size_t new_capacity = max(2*static_cast<int>(size), 2);
-        T* brr = new T[new_capacity];
-        for (int i=0; i< size; i++)
-            brr[i] = arr[(read+i)%capacity];
-        delete [] arr;
-        arr = brr;
-        capacity = new_capacity;
-        read = 0; write = size;
+    T&operator [](size_t index)
+    {
+        return arr[read+index]; 
     }
-
 };
 
 #endif // QUEUE_H
