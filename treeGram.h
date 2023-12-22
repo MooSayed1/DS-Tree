@@ -14,7 +14,6 @@ public:
 
 
 private:
-  linkedList<User> users;
   HashTable goFast;
 };
 

@@ -7,7 +7,7 @@
 
 
 struct AVLNode {
-  User *data;
+  User data;
   AVLNode *left;
   AVLNode *right;
   int height;
