@@ -16,7 +16,7 @@ public:
     Queue():capacity(10),read(0),write(0),size(0){
         arr=new T[capacity];
     }
-    Queue(size_t initialCapacity = 10) {
+    Queue(size_t initialCapacity) {
         capacity = initialCapacity;
         arr = new T[capacity];
         read = write = 0;
@@ -79,7 +79,7 @@ public:
 
     T&operator [](size_t index)
     {
-        return arr[read+index]; 
+        return arr[(read+index)%capacity]; 
     }
 };
 

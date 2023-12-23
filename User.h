@@ -1,27 +1,33 @@
 #ifndef USER_H
 #define USER_H
 
-#include <string>
-#include <iostream>
-#include "Queue.h"
 #include "Activity.h"
-using std::string ;
-using std::cout ;
+#include "Queue.h"
+#include <cstddef>
+#include <iostream>
+#include <string>
+using std::cout;
+using std::string;
 
 class User {
 private:
-    string name;
-    string phone;
-    string handel;
-    int age;
-    Queue<Activity>activites; 
+  string name;
+  string phone;
+  string handel;
+  int age;
+  Queue<Activity> activites;
 
 public:
-    User(const string& name, const string& phone,const string & handel, int age);
-		User():name("UNKOWN"),phone("UNKOWN"),handel(""),age(0){}
-    void displayInfo() const;
-    string getHandel()const;
+  User(const string &name, const string &phone, const string &handel, int age);
 
+  User();
+  void displayInfo() const;
+  string getHandel() const;
+
+  void addPost(const string &content);
+
+  void addLikes(size_t post_num, size_t Likes);
+  void addViews(size_t post_num, size_t Views);
 };
 
 #endif // USER_H
