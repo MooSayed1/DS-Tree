@@ -72,12 +72,12 @@ bool HashTable::remove(const User &s)
   return successOrFail;
 }
 
-User *HashTable::search(const User &s) const
+User* HashTable::search(const User &s) const
 // returns user if s exist in the hash table, null otherwise
 {
   int hash = hashFunc(s.getHandel());
   arr[hash].search(arr[hash].GetRoot(), s);
-  return arr[hash].search(arr[hash].GetRoot(), s)->data;
+  return &(arr[hash].search(arr[hash].GetRoot(), s)->data);
 }
 
 User *HashTable::search(const string&s) const
@@ -85,7 +85,7 @@ User *HashTable::search(const string&s) const
 {
   int hash = hashFunc(s);
   arr[hash].search(arr[hash].GetRoot(), s);
-  return arr[hash].search(arr[hash].GetRoot(), s)->data;
+  return &(arr[hash].search(arr[hash].GetRoot(), s)->data);
 }
 
 int HashTable::size() const // returns numOfItems
