@@ -6,7 +6,7 @@ add_library(main_lib
 	AVLTree.cpp
 	hashTable.cpp
 	User.cpp
-        treegram.cpp
+        treeGram.cpp
 )
 
 add_executable(main
