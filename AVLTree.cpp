@@ -1,5 +1,7 @@
 #include "AVLTree.h"
 
+
+
 AVLNode *AVLTree::GetRoot() { return root; }
 // Unit of help functions for insertion and deletion
 int GetHight(AVLNode *p) {

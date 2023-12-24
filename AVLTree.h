@@ -1,4 +1,5 @@
 #include "User.h"
+#include <ios>
 #include <iostream>
 #include <queue>
 
@@ -11,10 +12,19 @@ struct AVLNode {
   AVLNode *left;
   AVLNode *right;
   int height;
+  AVLNode(){
+    left=NULL;
+    right=NULL;
+    height=0;
+  };
 };
 class AVLTree {
+  AVLNode *root;
+
 public:
-  AVLNode *root = NULL;
+  AVLTree(){
+  root = NULL;
+  };
   
   AVLNode *GetRoot();
 
