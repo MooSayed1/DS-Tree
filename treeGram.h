@@ -1,11 +1,10 @@
 #ifndef TREEGRAM_H
 #define TREEGRAM_H
+
 #include "AVLTree.h"
 #include "LinkedList.h"
 #include "User.h"
 #include "hashTable.h"
-// #include "hash_map"
-// #include <cstddef>
 
 class treeGram {
 public:
@@ -20,4 +19,5 @@ public:
 private:
   HashTable goFast;
 };
+
 #endif //TREEGRAM_H

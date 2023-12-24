@@ -1,6 +1,4 @@
 #include "User.h"
-#include <iostream>
-#include <string>
 
 void User::displayInfo() const {
   cout << "Name: " << name << "\nPhone: " << phone << "\nAge: " << age << endl;
