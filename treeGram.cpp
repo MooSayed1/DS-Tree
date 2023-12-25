@@ -1,14 +1,21 @@
 #include "treeGram.h"
 
-treeGram::treeGram() {}
 
-treeGram::~treeGram() {}
+treeGram::treeGram(){
+
+  }
+treeGram::~treeGram(){
+
+  }
+void treeGram::test(){
+  cout<<goFast.size();
+}
 
 bool treeGram::addUser(const string &name, const string &phone,
                        const string &handel, int age) {
   User temp(name, phone, handel, age);
   if (goFast.search(temp) == nullptr) {
-    goFast.insert(temp);
+    // goFast.insert(temp);
     return true;
   }
   return false;

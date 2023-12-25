@@ -14,8 +14,9 @@ public:
   bool remove(const User &);
   User *search(const User &) const;
   User *search(const string &) const;
-  int size() const;    // return numOfItems
-  int maxSize() const; // return arrSize
+  int size() const;          // return numOfItems
+  int maxSize() const;       // return arrSize
+  double loadFactor() const; // returns the load factor of the hash table
 
 private:
   AVLTree *arr;

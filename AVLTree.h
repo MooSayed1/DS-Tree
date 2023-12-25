@@ -19,7 +19,7 @@ struct AVLNode {
   };
 };
 class AVLTree {
-  AVLNode *root;
+  AVLNode *root ;
 
 public:
   AVLTree(){

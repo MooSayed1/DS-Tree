@@ -1,25 +1,14 @@
-cmake_minimum_required(VERSION 3.5)
 
-project(DS-Tree)
+cmake_minimum_required(VERSION 3.10)
 
-add_library(main_lib
-	AVLTree.cpp
-	hashTable.cpp
-	User.cpp
-        treeGram.cpp
-)
+project(Treegram)
 
-add_executable(main
-main.cpp
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-)
-## target_compile_options(main_lib PRIVATE -std=c++11 -Wall -Wextra -pedantic)
+# Add your source files here
+set(SRC main.cpp User.cpp hashTable.cpp treeGram.cpp AVLTree.cpp)
 
-## target_compile_options(main PRIVATE -std=c++11 -Wall -Wextra -pedantic)
+add_executable(main ${SRC})
 
-link_libraries(
-	main
-	PRIVATE
-	main_lib
-
-)

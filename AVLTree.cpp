@@ -4,7 +4,7 @@
 
 AVLNode *AVLTree::GetRoot() { return root; }
 // Unit of help functions for insertion and deletion
-int GetHight(AVLNode *p) {
+int AVLTree::GetHight(AVLNode *p) {
   int hl, hr;
   hl = (p && p->left) ? p->left->height : 0;
   hr = (p && p->right) ? p->right->height : 0;
@@ -57,7 +57,6 @@ AVLNode *AVLTree::LLRotation(AVLNode *p) {
 }
 AVLNode *AVLTree::LRRotation(AVLNode *p) {
   // 4 assin links should be done
-  int lbf, rbf;
 
   AVLNode *pl = p->left;
   AVLNode *plr = pl->right;

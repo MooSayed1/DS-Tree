@@ -15,6 +15,7 @@ public:
   bool addPost(const string &handel,const string &content);
   bool addLikes(const string &handel,size_t post_num,size_t Likes);
   bool addViews(const string &handel,size_t post_num,size_t Views);
+  void test();
 
 private:
   HashTable goFast;
