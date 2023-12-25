@@ -1,11 +1,11 @@
-#include "User.h"
-#include <ios>
-#include <iostream>
-#include <queue>
 
 #ifndef AVLTREE_H
 #define AVLTREE_H
 
+#include "User.h"
+// #include <ios>
+#include <iostream>
+#include <queue>
 
 struct AVLNode {
   User data;
@@ -18,7 +18,9 @@ struct AVLNode {
     height=0;
   };
 };
+
 class AVLTree {
+  private:
   AVLNode *root ;
 
 public:
@@ -65,5 +67,6 @@ public:
   AVLNode *search(AVLNode *root, string key) ;
 
 };
+
 #endif // AVLTREE_H
 

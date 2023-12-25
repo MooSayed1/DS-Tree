@@ -1,7 +1,5 @@
 #include "AVLTree.h"
 
-
-
 AVLNode *AVLTree::GetRoot() { return root; }
 // Unit of help functions for insertion and deletion
 int AVLTree::GetHight(AVLNode *p) {
@@ -57,6 +55,7 @@ AVLNode *AVLTree::LLRotation(AVLNode *p) {
 }
 AVLNode *AVLTree::LRRotation(AVLNode *p) {
   // 4 assin links should be done
+  int lbf, rbf;
 
   AVLNode *pl = p->left;
   AVLNode *plr = pl->right;
