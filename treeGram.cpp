@@ -12,11 +12,11 @@ void treeGram::test(){
 }
 
 bool treeGram::addUser(string name,string phone,string handel,int age) {
-  User temp(name, phone, handel, age);
-  cout<<"wtf";
 
-  if (goFast.search(handel) == nullptr) {
-    // goFast.insert(temp);
+  if (goFast.search(handel) == NULL) {
+    // goFast.search(handel)->displayInfo();
+    // cout<<goFast.search(handel);
+    goFast.insert(name, phone, handel, age);
     return true;
   }
 
@@ -24,7 +24,7 @@ bool treeGram::addUser(string name,string phone,string handel,int age) {
 }
 bool treeGram::addPost(const string &handel, const string &content) {
   User *temp = goFast.search(handel);
-  if (temp != nullptr) {
+  if (temp != NULL) {
     temp->addPost(content);
     return true;
   }
@@ -32,7 +32,7 @@ bool treeGram::addPost(const string &handel, const string &content) {
 }
 bool treeGram::addLikes(const string &handel, size_t post_num, size_t Likes) {
   User *temp = goFast.search(handel);
-  if (temp != nullptr) {
+  if (temp != NULL) {
     temp->addLikes(post_num, Likes);
     return true;
   }
@@ -40,7 +40,7 @@ bool treeGram::addLikes(const string &handel, size_t post_num, size_t Likes) {
 }
 bool treeGram::addViews(const string &handel, size_t post_num, size_t Views) {
   User *temp = goFast.search(handel);
-  if (temp != nullptr) {
+  if (temp != NULL) {
     temp->addViews(post_num, Views);
     return true;
   }

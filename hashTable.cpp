@@ -25,7 +25,7 @@ int HashTable::hashFunc(const string &s) const
 // overflow on large strings)
 {
   int hashVal = 0, asc;
-  for (int i = 0; i < s.size(); i++) {
+  for (size_t i = 0; i < s.size(); i++) {
     asc = s[i] > 96 ? s[i] - 96 : s[i] - 64;
     hashVal = (hashVal * 32 + asc) % arrSize;
   }
@@ -50,38 +50,30 @@ bool HashTable::isPrime(int n) const
   return isPrime;
 }
 
-bool HashTable::insert(const User &s)
+bool HashTable::insert(string name,string phone,string handel,int age)
 // inserts string s if it doesn't exist in the hash table and
 // returns 1 if insertion successful, 0 otherwise
 {
-  int hash = hashFunc(s.getHandel());
-  bool successOrFail = arr[hash].insert(arr[hash].GetRoot(), s);
+  int hash = hashFunc(handel);
+  bool successOrFail = arr[hash].insert(arr[hash].GetRoot(), User(name,phone,handel,age));
   numOfItems++;
   return successOrFail;
 }
 
-bool HashTable::remove(const User &s)
+bool HashTable::remove(const string &handel)
 // removes string s if s exist in the hash table and returns
 // 1 if removal successful, 0 otherwise
 {
-  int hash = hashFunc(s.getHandel());
-  bool successOrFail = arr[hash].remove(arr[hash].GetRoot(), s);
+  int hash = hashFunc(handel);
+  bool successOrFail = arr[hash].remove(arr[hash].GetRoot(), handel);
   numOfItems--;
   return successOrFail;
 }
-
-User* HashTable::search(const User &s) const
-// returns user if s exist in the hash table, null otherwise
-{
-  int hash = hashFunc(s.getHandel());
-  arr[hash].search(arr[hash].GetRoot(), s);
-  return &(arr[hash].search(arr[hash].GetRoot(), s)->data);
-}
-
 User *HashTable::search(const string&s) const
 // returns user if s exist in the hash table, null otherwise
 {
   int hash = hashFunc(s);
+  cout<<hash<<endl;
   arr[hash].search(arr[hash].GetRoot(), s);
   return &(arr[hash].search(arr[hash].GetRoot(), s)->data);
 }

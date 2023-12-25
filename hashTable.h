@@ -12,9 +12,8 @@ public:
   HashTable();    // default constructor
   HashTable(int); // one parameter constructor
   ~HashTable();   // destructor
-  bool insert(const User &);
-  bool remove(const User &);
-  User *search(const User &) const;
+  bool insert(string name,string phone,string handel,int age);
+  bool remove(const string &);
   User *search(const string &) const;
   int size() const;          // return numOfItems
   int maxSize() const;       // return arrSize

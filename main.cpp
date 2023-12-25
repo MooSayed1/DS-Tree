@@ -10,11 +10,9 @@ int main()
     cout<<"Ahmed Mohsen"<<endl;
     treeGram obj;
     obj.addUser("test", "test","test", 0);
-    obj.addUser("shit", "shit","shit", 0);
     obj.addUser("test", "test","test", 0);
-    obj.addUser("test", "test","test", 0);
-    obj.addUser("test", "test","test", 0);
-    
+   
+    obj.test();
     // AVLTree ob; 
     // obj.test();
 

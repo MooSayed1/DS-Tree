@@ -61,7 +61,7 @@ public:
 
   AVLNode *insert(AVLNode *node, User key) ;
   
-  AVLNode *remove(AVLNode *p, User key) ;
+  AVLNode *remove(AVLNode *p, string key) ;
 
   AVLNode *search(AVLNode *root, User key) ;
   AVLNode *search(AVLNode *root, string key) ;
