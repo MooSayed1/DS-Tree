@@ -18,7 +18,7 @@ private:
   Queue<Activity> activites;
 
 public:
-  User(const string &name, const string &phone, const string &handel, int age);
+  User(string name, string phone,string handel, int age);
 
   User();
   void displayInfo() const;

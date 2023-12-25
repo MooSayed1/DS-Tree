@@ -3,7 +3,9 @@
 
 #include "AVLTree.h"
 #include "User.h"
-#pragma once
+#include <iostream>
+#include <string>
+// #pragma once
 
 class HashTable {
 public:
@@ -17,6 +19,7 @@ public:
   int size() const;          // return numOfItems
   int maxSize() const;       // return arrSize
   double loadFactor() const; // returns the load factor of the hash table
+  void displayUsers();
 
 private:
   AVLTree *arr;

@@ -8,8 +8,7 @@ string User::getHandel() const { return this->handel; }
 
 User::User() : name("UNKOWN"), phone("UNKOWN"), handel(""), age(0) {}
 
-User::User(const string &name, const string &phone, const string &handel,
-           int age)
+User::User(string name, string phone,string handel, int age)
     : name(name), phone(phone), handel(handel), age(age) {}
 void User::addPost(const string &content) {
   this->activites.enqueue(Activity(content));

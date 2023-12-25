@@ -1,12 +1,31 @@
 #include "hashTable.h"
-#include "User.h"
+
+HashTable::HashTable() // default constructor
+{
+  arrSize = 101;
+  arr = new AVLTree[arrSize];
+  numOfItems = 0;
+}
+
+HashTable::HashTable(int n)
+// creates a hash table to store n items where the size of the array
+// is the smallest prime number >= 2*n
+{
+  arrSize = getPrime(n);
+  arr = new AVLTree[arrSize];
+  numOfItems = 0;
+}
+HashTable::~HashTable() // destructor
+{
+  delete[] arr;
+}
 
 int HashTable::hashFunc(const string &s) const
 // hash function (utilizes horner's method to prevent
 // overflow on large strings)
 {
   int hashVal = 0, asc;
-  for (size_t i = 0; i < s.size(); i++) {
+  for (int i = 0; i < s.size(); i++) {
     asc = s[i] > 96 ? s[i] - 96 : s[i] - 64;
     hashVal = (hashVal * 32 + asc) % arrSize;
   }
@@ -29,27 +48,6 @@ bool HashTable::isPrime(int n) const
     if (n % count == 0)
       isPrime = false;
   return isPrime;
-}
-
-HashTable::HashTable() // default constructor
-{
-  arrSize = 101;
-  arr = new AVLTree[arrSize];
-  numOfItems = 0;
-}
-
-HashTable::HashTable(int n)
-// creates a hash table to store n items where the size of the array
-// is the smallest prime number >= 2*n
-{
-  arrSize = getPrime(n);
-  arr = new AVLTree[arrSize];
-  numOfItems = 0;
-}
-
-HashTable::~HashTable() // destructor
-{
-  delete[] arr;
 }
 
 bool HashTable::insert(const User &s)
@@ -76,8 +74,7 @@ User* HashTable::search(const User &s) const
 // returns user if s exist in the hash table, null otherwise
 {
   int hash = hashFunc(s.getHandel());
-  cout<<hash;
-
+  arr[hash].search(arr[hash].GetRoot(), s);
   return &(arr[hash].search(arr[hash].GetRoot(), s)->data);
 }
 
@@ -85,7 +82,8 @@ User *HashTable::search(const string&s) const
 // returns user if s exist in the hash table, null otherwise
 {
   int hash = hashFunc(s);
-  return &(arr[hash].search(arr[hash].GetRoot(), s.c_str())->data);
+  arr[hash].search(arr[hash].GetRoot(), s);
+  return &(arr[hash].search(arr[hash].GetRoot(), s)->data);
 }
 
 int HashTable::size() const // returns numOfItems
