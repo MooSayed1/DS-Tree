@@ -6,15 +6,16 @@ add_library(main_lib
 	AVLTree.cpp
 	hashTable.cpp
 	User.cpp
+        treeGram.cpp
 )
 
 add_executable(main
 main.cpp
 
 )
-target_compile_options(main_lib PRIVATE -std=c++11 -Wall -Wextra -pedantic)
+## target_compile_options(main_lib PRIVATE -std=c++11 -Wall -Wextra -pedantic)
 
-target_compile_options(main PRIVATE -std=c++11 -Wall -Wextra -pedantic)
+## target_compile_options(main PRIVATE -std=c++11 -Wall -Wextra -pedantic)
 
 link_libraries(
 	main
