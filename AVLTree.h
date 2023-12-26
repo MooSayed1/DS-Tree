@@ -174,7 +174,7 @@ public:
   AVLNode *search(const User &key) { return search_(root, key); }
   AVLNode *search(const string &key) { return search_(root, key); }
 
-  AVLNode *insert(User &key) { return insertNode(root, key); }
+  AVLNode* insert(User &key) { return root=insertNode(root, key); }
   AVLNode *remove(const string key) { return remove_(root, key); }
 };
 
