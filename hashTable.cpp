@@ -55,7 +55,7 @@ bool HashTable::insert(string name,string phone,string handel,int age)
 // returns 1 if insertion successful, 0 otherwise
 {
   int hash = hashFunc(handel);
-  bool successOrFail = arr[hash].insert(arr[hash].GetRoot(), User(name,phone,handel,age));
+  bool successOrFail = arr[hash].insertNode(arr[hash].GetRoot(), User(name,phone,handel,age));
   numOfItems++;
   return successOrFail;
 }

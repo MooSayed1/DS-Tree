@@ -20,3 +20,5 @@ void User::addLikes(size_t post_num, size_t Likes) {
 void User::addViews(size_t post_num, size_t Views) {
   this->activites[post_num].addViews(Views);
 }
+
+
