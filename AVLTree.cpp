@@ -21,18 +21,7 @@
 //}
 //
 //// help functions on deletions
-AVLNode *AVLTree::InPre(AVLNode *p) {
-  while (p && p->right != nullptr) {
-    p = p->right;
-  }
-  return p;
-}
-AVLNode *AVLTree::InSucc(AVLNode *p) {
-  while (p && p->left != nullptr) {
-    p = p->left;
-  }
-  return p;
-}
+
 //
 //// For rotations
 //AVLNode* AVLTree::LLRotation(AVLNode* p) {
@@ -291,11 +280,11 @@ AVLNode* AVLTree::remove(AVLNode* p, string key) {
     }
 }
 AVLNode *AVLTree::search(AVLNode *root, User key) {
-  if (root == NULL || root->data.getHandel() == key.getHandel())
+  if (root == NULL || root->key.getHandel() == key.getHandel())
     return root;
 
   // Key is greater than root's key
-  if (root->data.getHandel() < key.getHandel())
+  if (root->key.getHandel() < key.getHandel())
     return search(root->right, key);
 
   // Key is smaller than root's key
@@ -303,11 +292,11 @@ AVLNode *AVLTree::search(AVLNode *root, User key) {
 }
 
 AVLNode *AVLTree::search(AVLNode *root, string key) {
-  if (root == NULL || root->data.getHandel() == key)
+  if (root == NULL || root->key.getHandel() == key)
     return root;
 
   // Key is greater than root's key
-  if (root->data.getHandel() < key)
+  if (root->key.getHandel() < key)
     return search(root->right, key);
 
   // Key is smaller than root's key

@@ -119,10 +119,10 @@ public:
 	/* Helper function that allocates a
 	new node with the given key and
 	NULL left and right pointers. */
-	AVLNode* newNode(int key)
+	AVLNode* newNode(User key)
 	{
 		AVLNode* node = new AVLNode();
-		node->key = key;
+		node->key.MakeCopy(key);
 		node->left = NULL;
 		node->right = NULL;
 		node->height = 1; // new node is initially 
@@ -185,20 +185,20 @@ public:
 	// Recursive function to insert a key 
 	// in the subtree rooted with node and 
 	// returns the new root of the subtree. 
-	void insertNode(int key) {
+	void insertNode(User key) {
 		this->root = insertNode(root, key);
 	}
 
-	AVLNode* insertNode(AVLNode* node, int key)
+	AVLNode* insertNode(AVLNode* node, User NewUser)
 	{
 		/* 1. Perform the normal BST insertion */
 		if (node == NULL)
-			return(newNode(key));
+			return(newNode(NewUser));
 
-		if (key < node->key)
-			node->left = insertNode(node->left, key);
-		else if (key > node->key)
-			node->right = insertNode(node->right, key);
+		if (NewUser.getHandel() < node->key.getHandel())
+			node->left = insertNode(node->left, NewUser);
+		else if (NewUser.getHandel() > node->key.getHandel())
+			node->right = insertNode(node->right, NewUser);
 		else // Equal keys are not allowed in BST 
 			return node;
 
@@ -215,22 +215,22 @@ public:
 		// there are 4 cases 
 
 		// Left Left Case 
-		if (balance > 1 && key < node->left->key)
+		if (balance > 1 && NewUser.getHandel() < node->left->key.getHandel())
 			return rightRotate(node);
 
 		// Right Right Case 
-		if (balance < -1 && key > node->right->key)
+		if (balance < -1 && NewUser.getHandel() > node->right->key.getHandel())
 			return leftRotate(node);
 
 		// Left Right Case 
-		if (balance > 1 && key > node->left->key)
+		if (balance > 1 && NewUser.getHandel() > node->left->key.getHandel())
 		{
 			node->left = leftRotate(node->left);
 			return rightRotate(node);
 		}
 
 		// Right Left Case 
-		if (balance < -1 && key < node->right->key)
+		if (balance < -1 && NewUser.getHandel() < node->right->key.getHandel())
 		{
 			node->right = rightRotate(node->right);
 			return leftRotate(node);
@@ -248,31 +248,34 @@ public:
 	{
 		if (root != NULL)
 		{
-			cout << root->key << " ";
+			cout << root->key.getHandel() << " ";
 			preOrder(root->left);
 			preOrder(root->right);
 		}
 	}
 	void Levelorder(AVLNode* p) {
 		queue<AVLNode*> q;
-		cout << p->key << " ";
+		cout << root->key.getHandel() << " ";
 		q.push(p);
 		while (!q.empty()) {
 			p = q.front();
 			q.pop();
 			if (p->left) {
-				cout << p->left->key << " ";
+				cout << root->key.getHandel() << " ";
 				q.push(p->left);
 			}
 			if (p->right) {
-				cout << p->right->key << " ";
+				cout << root->key.getHandel() << " ";
 				q.push(p->right);
 			}
 
 		}
 	}
 
-    
+	
+
+	AVLNode* AVLTree::search(AVLNode* root, User key);
+	AVLNode* AVLTree::search(AVLNode* root, string key);
 };
 
 #endif // AVLTREE_H
