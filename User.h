@@ -23,11 +23,22 @@ public:
   void displayInfo() const;
   
   string getHandel() const;
-   void SetHandle(string newHandle) {
+  void SetHandle(string newHandle) {
       this->handel = newHandle;
   }
 
 
+  User(const User& other) : name(other.name), phone(other.phone), handel(other.handel), age(other.age) {}
+  User& operator=(const User& other) {
+      if (this != &other) {
+          // Copy each member variable
+          name = other.name;
+          phone = other.phone;
+          handel = other.handel;
+          age = other.age;
+      }
+      return *this;
+  }
 
   void addPost(const string &content);
   

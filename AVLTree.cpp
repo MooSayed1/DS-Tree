@@ -225,25 +225,27 @@ AVLNode* AVLTree::remove(AVLNode* p, string key) {
         delete p;
         return nullptr;
     }
-    if (key < p->data.getHandel()) {
+    if (key < p->key.getHandel()) {
         p->left = remove(p->left, key);
     }
-    else if (key > p->data.getHandel()) {
+    else if (key > p->key.getHandel()) {
         p->right = remove(p->right, key);
     }
     // untill here we dont found the key
-    else { // oh we found the node which be deleted
+
+    else { 
+        // oh we found the node which be deleted
         // the avl tree work start from here
         AVLNode* q;
         if (height(p->left) > height(p->right)) {
             q = InPre(p->left);
-            p->data = q->data;
-            p->left = remove(p->left, q->data.getHandel());
+            p->key.MakeCopy(q->key);
+            p->left = remove(p->left, q->key.getHandel());
         }
         else {
             q = InSucc(p->right);
-            p->data = q->data;
-            p->right = remove(p->right, q->data.getHandel());
+            p->key.MakeCopy(q->key);
+            p->right = remove(p->right, q->key.getHandel());
         }
     }
 
@@ -254,24 +256,24 @@ AVLNode* AVLTree::remove(AVLNode* p, string key) {
     // deleted node cause imbalance in the tree and rotate if true (the same in
     // inserting) GH :)
 
-    int balanceFactor = getBalanceFactor(p); // for each node in return time
+    int balanceFactor = getBalance(p); // for each node in return time
 
     if (balanceFactor > 1) {
         // mean this node what i stand on it "impalance"
-        if (key < p->left->data.getHandel()) {
-            if (key < p->left->data.getHandel()) {
+        if (key < p->left->key.getHandel()) {
+            if (key < p->left->key.getHandel()) {
                 return rightRotate(p);
             }
-            else if (key > p->left->data.getHandel()) {
+            else if (key > p->left->key.getHandel()) {
                 p->left = leftRotate(p->left);
                 return rightRotate(p);
             }
         }
         else if (balanceFactor < -1) {
-            if (key > p->right->data.getHandel()) {
+            if (key > p->right->key.getHandel()) {
                 return leftRotate(p);
             }
-            else if (key < p->right->data.getHandel()) {
+            else if (key < p->right->key.getHandel()) {
                 p->right = rightRotate(p->right);
                 return leftRotate(p);
             }
@@ -279,6 +281,9 @@ AVLNode* AVLTree::remove(AVLNode* p, string key) {
         return p;
     }
 }
+
+
+
 AVLNode *AVLTree::search(AVLNode *root, User key) {
   if (root == NULL || root->key.getHandel() == key.getHandel())
     return root;
@@ -290,7 +295,6 @@ AVLNode *AVLTree::search(AVLNode *root, User key) {
   // Key is smaller than root's key
   return search(root->left, key);
 }
-
 AVLNode *AVLTree::search(AVLNode *root, string key) {
   if (root == NULL || root->key.getHandel() == key)
     return root;

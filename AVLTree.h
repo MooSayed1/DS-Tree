@@ -82,96 +82,44 @@ struct AVLNode {
     AVLNode* right;
     int height;
     AVLNode() {
-        left = NULL;
-        right = NULL;
-        height = 0;
+		left = NULL;
+		right = NULL;
+		height = 1; // new node is initially 
     };
+	
 };
 class AVLTree {
 private:
-    AVLNode* root;
 public:
-	// A utility function to get the 
-	// height of the tree 
 	AVLNode* root;
+
 	AVLTree() {
 		root = NULL;
 	}
-
 	AVLNode* GetRoot() {
 		return root;
 	}
-
 	int height(AVLNode* N)
 	{
 		if (N == NULL)
 			return 0;
 		return N->height;
 	}
-
-	// A utility function to get maximum 
-	// of two integers 
 	int max(int a, int b)
 	{
 		return (a > b) ? a : b;
 	}
-
-	/* Helper function that allocates a
-	new node with the given key and
-	NULL left and right pointers. */
-	AVLNode* newNode(User key)
-	{
-		AVLNode* node = new AVLNode();
-		node->key.MakeCopy(key);
-		node->left = NULL;
-		node->right = NULL;
-		node->height = 1; // new node is initially 
-		// added at leaf 
-		return(node);
+	AVLNode* InPre(AVLNode* p) {
+		while (p && p->right != NULL) {
+			p = p->right;
+		}
+		return p;
 	}
-
-	// A utility function to right 
-	// rotate subtree rooted with y 
-	// See the diagram given above. 
-	AVLNode* rightRotate(AVLNode* y)
-	{
-		AVLNode* x = y->left;
-		AVLNode* T2 = x->right;
-
-		// Perform rotation 
-		x->right = y;
-		y->left = T2;
-
-		// Update heights 
-		y->height = max(height(y->left),
-			height(y->right)) + 1;
-		x->height = max(height(x->left),
-			height(x->right)) + 1;
-
-		// Return new root 
-		return x;
-	}
-
-	// A utility function to left 
-	// rotate subtree rooted with x 
-	// See the diagram given above. 
-	AVLNode* leftRotate(AVLNode* x)
-	{
-		AVLNode* y = x->right;
-		AVLNode* T2 = y->left;
-
-		// Perform rotation 
-		y->left = x;
-		x->right = T2;
-
-		// Update heights 
-		x->height = max(height(x->left),
-			height(x->right)) + 1;
-		y->height = max(height(y->left),
-			height(y->right)) + 1;
-
-		// Return new root 
-		return y;
+	AVLNode* InSucc(AVLNode* p) {
+		while (p && p->left != NULL) {
+			p = p->left;
+		}
+		return p;
 	}
 
 	// Get Balance factor of node N 
@@ -181,27 +129,48 @@ public:
 			return 0;
 		return height(N->left) - height(N->right);
 	}
+	/* Helper function that allocates a
+	new node with the given key and
+	NULL left and right pointers. */
+	AVLNode* newNode(User& key)
+	{
+		try {
+			AVLNode* node = new AVLNode;
+			node->key.MakeCopy(key);
+			return node;
+		}
+		catch (const std::bad_alloc& e) {
+			// Handle memory allocation failure
+			std::cerr << "Memory allocation failed: " << e.what() << std::endl;
+			return nullptr;
+		}
+
+	}
+	// help function that update the root for each insertions
+	void TempinsertInAvLTree(User& key) {
+		root = insertNode(root, key);
+	}
+
 
 	// Recursive function to insert a key 
 	// in the subtree rooted with node and 
-	// returns the new root of the subtree. 
-	void insertNode(User key) {
-		this->root = insertNode(root, key);
-	}
-
-	AVLNode* insertNode(AVLNode* node, User NewUser)
+	// returns the new root of the subtree.
+	AVLNode* insertNode(AVLNode* node, User& NewUser)
 	{
 		/* 1. Perform the normal BST insertion */
-		if (node == NULL)
-			return(newNode(NewUser));
-
-		if (NewUser.getHandel() < node->key.getHandel())
+		if (node == NULL) {
+			cout << "not null first\n";
+			return newNode(NewUser);
+		}
+		else if (NewUser.getHandel() < node->key.getHandel()) {
 			node->left = insertNode(node->left, NewUser);
-		else if (NewUser.getHandel() > node->key.getHandel())
+		}
+		else if (NewUser.getHandel() > node->key.getHandel()) {
 			node->right = insertNode(node->right, NewUser);
-		else // Equal keys are not allowed in BST 
+		}
+		else { // Equal keys are not allowed in BST 
 			return node;
-
+		}
 		/* 2. Update height of this ancestor node */
 		node->height = 1 + max(height(node->left),
 			height(node->right));
@@ -240,42 +209,71 @@ public:
 		return node;
 	}
 
-	// A utility function to print preorder 
-	// traversal of the tree. 
-	// The function also prints height 
-	// of every node 
-	void preOrder(AVLNode* root)
-	{
-		if (root != NULL)
-		{
-			cout << root->key.getHandel() << " ";
-			preOrder(root->left);
-			preOrder(root->right);
-		}
-	}
-	void Levelorder(AVLNode* p) {
-		queue<AVLNode*> q;
-		cout << root->key.getHandel() << " ";
-		q.push(p);
-		while (!q.empty()) {
-			p = q.front();
-			q.pop();
-			if (p->left) {
-				cout << root->key.getHandel() << " ";
-				q.push(p->left);
-			}
-			if (p->right) {
-				cout << root->key.getHandel() << " ";
-				q.push(p->right);
-			}
 
-		}
+
+	//For Rotations
+	AVLNode* rightRotate(AVLNode* y)
+	{
+		AVLNode* x = y->left;
+		AVLNode* T2 = x->right;
+
+		// Perform rotation 
+		x->right = y;
+		y->left = T2;
+
+		// Update heights 
+		y->height = max(height(y->left),
+			height(y->right)) + 1;
+		x->height = max(height(x->left),
+			height(x->right)) + 1;
+
+		// Return new root 
+		return x;
+	}
+	AVLNode* leftRotate(AVLNode* x)
+	{
+		AVLNode* y = x->right;
+		AVLNode* T2 = y->left;
+
+		// Perform rotation 
+		y->left = x;
+		x->right = T2;
+
+		// Update heights 
+		x->height = max(height(x->left),
+			height(x->right)) + 1;
+		y->height = max(height(y->left),
+			height(y->right)) + 1;
+
+		// Return new root 
+		return y;
 	}
 
 	
+	// For displaying 
+	void printPreorder(AVLNode* node)
+	{
+		if (node == NULL)
+			return;
 
+		// First print data of node
+		cout << node->key.getHandel() << " ";
+
+		// Then recur on left subtree
+		printPreorder(node->left);
+
+		// Now recur on right subtree
+		printPreorder(node->right);
+	}
+	
+
+	
+	// for searching
 	AVLNode* AVLTree::search(AVLNode* root, User key);
 	AVLNode* AVLTree::search(AVLNode* root, string key);
+
+
+	AVLNode* remove(AVLNode* p, string key);
 };
 
 #endif // AVLTREE_H

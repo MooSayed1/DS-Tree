@@ -75,7 +75,7 @@ User *HashTable::search(const string&s) const
   int hash = hashFunc(s);
   cout<<hash<<endl;
   arr[hash].search(arr[hash].GetRoot(), s);
-  return &(arr[hash].search(arr[hash].GetRoot(), s)->data);
+  return &(arr[hash].search(arr[hash].GetRoot(), s)->key);
 }
 
 int HashTable::size() const // returns numOfItems
