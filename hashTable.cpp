@@ -50,12 +50,13 @@ bool HashTable::isPrime(int n) const
   return isPrime;
 }
 
-bool HashTable::insert(string name,string phone,string handel,int age)
+bool HashTable::insert(string name, string phone, string handel, int age)
 // inserts string s if it doesn't exist in the hash table and
 // returns 1 if insertion successful, 0 otherwise
 {
   int hash = hashFunc(handel);
-  bool successOrFail = arr[hash].insertNode(arr[hash].GetRoot(), User(name,phone,handel,age));
+  User key(name, phone, handel, age);
+  bool successOrFail = arr[hash].insert(key);
   numOfItems++;
   return successOrFail;
 }
@@ -65,17 +66,17 @@ bool HashTable::remove(const string &handel)
 // 1 if removal successful, 0 otherwise
 {
   int hash = hashFunc(handel);
-  bool successOrFail = arr[hash].remove(arr[hash].GetRoot(), handel);
+  bool successOrFail = arr[hash].remove(handel);
   numOfItems--;
   return successOrFail;
 }
-User *HashTable::search(const string&s) const
+User *HashTable::search(const string &s) const
 // returns user if s exist in the hash table, null otherwise
 {
   int hash = hashFunc(s);
-  cout<<hash<<endl;
-  arr[hash].search(arr[hash].GetRoot(), s);
-  return &(arr[hash].search(arr[hash].GetRoot(), s)->key);
+  cout << hash << endl;
+  arr[hash].search(s);
+  return &(arr[hash].search(s)->key);
 }
 
 int HashTable::size() const // returns numOfItems
