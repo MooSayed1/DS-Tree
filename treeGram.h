@@ -5,6 +5,7 @@
 #include "LinkedList.h"
 #include "User.h"
 #include "hashTable.h"
+#include "crow.h"
 #include <vector>
 
 class treeGram {
@@ -15,6 +16,7 @@ public:
   bool addPost(const string &handel,const string &content);
   bool addLikes(const string &handel,size_t post_num,size_t Likes);
   bool addViews(const string &handel,size_t post_num,size_t Views);
+  void Deploy();
   void test();
 
 private:

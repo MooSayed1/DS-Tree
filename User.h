@@ -14,9 +14,9 @@ private:
   string phone;
   string handel;
   size_t age;
-  Queue<Activity> activites;
 
 public:
+  Queue<Activity> activites;
   User(string name, string phone, string handel, int age);
 
   User();

@@ -1,22 +1,56 @@
 #include "treeGram.h"
 #include <algorithm>
+#include <chrono> // std::chrono::system_clock
+#include <cstddef>
 #include <cstdlib>
 #include <random>
-#include <chrono>       // std::chrono::system_clock
 
 treeGram::treeGram() {}
 treeGram::~treeGram() {}
 void treeGram::test() {
   cout << goFast.size() << endl;
-   
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine rng(seed);
-    std::shuffle(std::begin(handels), std::end(handels), rng);
+
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  std::default_random_engine rng(seed);
+  std::shuffle(std::begin(handels), std::end(handels), rng);
 
   for (unsigned int i = 0; i < handels.size(); i++) {
     cout << handels[i] << endl;
-       goFast.search(handels[i])->displayInfo();
+    goFast.search(handels[i])->displayInfo();
   }
+}
+void treeGram::Deploy() {
+
+  crow::SimpleApp app;
+
+  // Route handler for profile
+  CROW_ROUTE(app, "/jsonProfile/<string>")
+  ([this](std::string Handle) {
+    User *x = goFast.search(Handle);
+
+    if (x == NULL)
+      return crow::json::wvalue();
+    std::vector<crow::json::wvalue> profilePostsArray;
+
+    for (size_t i = 0; i < x->activites.getSize(); i++) {
+      profilePostsArray.push_back(
+          crow::json::wvalue({{"id", i},
+                              {"Content", x->activites[i].getContent()},
+                              {"Photo", "NONE"},
+                              {"likes", x->activites[i].getLikes()},
+                              {"views", x->activites[i].getViews()},
+                              {"Date", x->activites[i].getDate()}}));
+    }
+
+    return crow::json::wvalue({{"name", x->getName()},
+                               {"phone", x->getPhone()},
+                               {"handel", x->getHandel()},
+                               {"age", x->getAge()},
+                               {"activites", profilePostsArray}});
+    ;
+  });
+
+  app.port(18080).server_name("CrowCpp").multithreaded().run();
 }
 
 bool treeGram::addUser(string name, string phone, string handel, int age) {
