@@ -13,16 +13,20 @@ private:
   string name;
   string phone;
   string handel;
-  int age;
+  size_t age;
   Queue<Activity> activites;
 
 public:
   User(string name, string phone, string handel, int age);
 
   User();
-  void displayInfo() const;
+  void displayInfo();
 
+  string getName() const;
+  string getPhone() const;
   string getHandel() const;
+  size_t getAge() const;
+
   void SetHandle(string newHandle) { this->handel = newHandle; }
 
   User(const User &other)

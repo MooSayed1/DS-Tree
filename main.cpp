@@ -1,24 +1,20 @@
-#include "AVLTree.h"
-#include "User.h"
 #include "hashTable.h"
 #include "treeGram.h"
 
 using namespace std;
 int main() {
-  AVLTree t;
-  User u1("1", "1", "c", 5);
-  User u2("1", "1", "r", 5);
-  User u3("1", "1", "a", 5);
-  User u4("1", "1", "x", 5);
-  User u5("1", "1", "z", 5);
-
-  t.insert(u1);
-  t.insert(u2);
-  t.insert(u3);
-  t.insert(u4);
-  t.insert(u5);
+  treeGram t;
+   t.addUser("1", "1", "aaa", 5);
+   t.addPost("aaa", "Hello");
+   t.addLikes("aaa", 0, 10);
+   t.addLikes("aaa", 0, 10);
+   t.addPost("aaa", "Hello1");
+   t.addPost("aaa", "Hello2");
+   t.addPost("aaa", "Hello3");
   
-  t.printPreorder();
+   t.addLikes("aaa", 2, 14);
+   t.addLikes("aaa", 2, 15);
+   t.test();
 
   return 0;
 }

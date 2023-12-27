@@ -29,6 +29,24 @@ public:
     void addViews(size_t Views ){
         views+=Views;
     }
+        const std::string& getContent() const {
+        return content;
+    }
+
+    // Getter for likes
+    size_t getLikes() const {
+        return likes;
+    }
+
+    // Getter for views
+    size_t getViews() const {
+        return views;
+    }
+
+    // Getter for date
+    const std::string& getDate() const {
+        return date;
+    }
     // Display post information
     void displayPost() {
         std::cout << "Content: " << content << std::endl;

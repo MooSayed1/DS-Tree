@@ -1,10 +1,25 @@
 #include "User.h"
 
-void User::displayInfo() const {
+void User::displayInfo() {
   cout << "Name: " << name << "\nPhone: " << phone << "\nAge: " << age << endl;
+  if (!this->activites.isEmpty()) {
+    for (size_t i =0 ; i<activites.getSize(); i++) {
+    cout<<"i = "<<i<<endl;
+    this->activites[i].displayPost();
+    }
+  
+  }
+  else {
+    cout<<"No posts"<<endl;
+  }
 }
 
+string User::getName() const { return this->name; }
+string User::getPhone() const { return this->phone; }
 string User::getHandel() const { return this->handel; }
+size_t User::getAge() const { return this->age; }
+
+
 
 User::User() : name("UNKOWN"), phone("UNKOWN"), handel(""), age(0) {}
 

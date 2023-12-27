@@ -18,7 +18,6 @@ public:
   int size() const;          // return numOfItems
   int maxSize() const;       // return arrSize
   double loadFactor() const; // returns the load factor of the hash table
-  void displayUsers();
 
 private:
   AVLTree *arr;

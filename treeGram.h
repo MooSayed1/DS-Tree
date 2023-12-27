@@ -5,6 +5,7 @@
 #include "LinkedList.h"
 #include "User.h"
 #include "hashTable.h"
+#include <vector>
 
 class treeGram {
 public:
@@ -18,6 +19,7 @@ public:
 
 private:
   HashTable goFast;
+  vector<string>handels;
 };
 
 #endif //TREEGRAM_H
