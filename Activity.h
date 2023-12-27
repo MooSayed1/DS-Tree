@@ -9,17 +9,17 @@ private:
     std::string content;
     size_t likes;
     size_t views;
-    std::string date;
+    time_t date;
 
 public:
     // Constructor
     Activity() : likes(0), views(0) {
         std::time_t now = std::time(0);
-        this->date = std::ctime(&now);
+        this->date = now;
     }
     Activity(std::string Content):content(Content),likes(0),views(0) {
         std::time_t now = std::time(0);
-        this->date = std::ctime(&now);
+        this->date = now;
     }
 
     void addLikes(size_t Likes ){
@@ -44,7 +44,7 @@ public:
     }
 
     // Getter for date
-    const std::string& getDate() const {
+    const time_t getDate() const {
         return date;
     }
     // Display post information
