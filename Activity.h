@@ -21,6 +21,20 @@ public:
         std::time_t now = std::time(0);
         this->date = now;
     }
+        // Copy constructor
+    Activity(const Activity& other)
+        : content(other.content), likes(other.likes), views(other.views), date(other.date) {}
+
+    // Assignment operator overload
+    Activity& operator=(const Activity& other) {
+        if (this != &other) { // Check for self-assignment
+            content = other.content;
+            likes = other.likes;
+            views = other.views;
+            date = other.date;
+        }
+        return *this;
+    }
 
     void addLikes(size_t Likes ){
         likes+=Likes;
@@ -44,7 +58,7 @@ public:
     }
 
     // Getter for date
-    const time_t getDate() const {
+    time_t getDate() const {
         return date;
     }
     // Display post information
