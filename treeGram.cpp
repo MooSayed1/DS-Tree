@@ -1,6 +1,7 @@
 #include "treeGram.h"
 #include <algorithm>
 #include <chrono> // std::chrono::system_clock
+#include <crow/middlewares/cors.h>
 #include <cstddef>
 #include <cstdlib>
 #include <random>
@@ -21,21 +22,46 @@ void treeGram::test() {
 }
 void treeGram::Deploy() {
 
-  crow::SimpleApp app;
+    // Enable CORS
+    crow::App<crow::CORSHandler> app;
+
+    // Customize CORS
+    auto& cors = app.get_middleware<crow::CORSHandler>();
+
+    // clang-format off
+    cors
+      .global()
+        .headers("X-Custom-Header", "Upgrade-Insecure-Requests")
+        .methods("POST"_method, "GET"_method)
+      .prefix("/cors")
+        .origin("tree.almiraj.xyz")
+      .prefix("/nocors")
+        .ignore();
+    // clang-format on
+
+    CROW_ROUTE(app, "/")
+    ([]() {
+        return "Check Access-Control-Allow-Methods header";
+    });
+
+    CROW_ROUTE(app, "/cors")
+    ([]() {
+        return "Check Access-Control-Allow-Origin header";
+    });
 
   CROW_ROUTE(app, "/add_user")
       .methods("POST"_method)([this](const crow::request &req) {
         auto x = crow::json::load(req.body);
         if (!x)
           return crow::response(400);
-        this->addUser(x["name"].s(), x["phone"].s(), x["handel"].s(),
-                      x["age"].i());
-        cout << x["name"].s() << " " << x["phone"].s() << " " << x["handel"].s()
-             << " " << x["age"].i() << endl;
+        this->addUser(x["name"].s(),x["phone"].s(),x["handel"].s(),x["age"].i());
+        cout<<x["name"].s()<<" "<<x["phone"].s()<<" "<<x["handel"].s()<<" "<<x["age"].i()<<endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
       });
+
+
 
   CROW_ROUTE(app, "/add_post")
       .methods("POST"_method)([this](const crow::request &req) {
@@ -44,11 +70,12 @@ void treeGram::Deploy() {
           return crow::response(400);
 
         this->addPost(x["handel"].s(), x["content"].s());
-        cout << x["handel"].s() << " " << x["content"].s() << endl;
+        cout<<x["handel"].s()<<" "<<x["content"].s()<<endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
       });
+  
 
   CROW_ROUTE(app, "/add_like")
       .methods("POST"_method)([this](const crow::request &req) {
@@ -56,8 +83,8 @@ void treeGram::Deploy() {
         if (!x)
           return crow::response(400);
 
-        this->addLikes(x["handel"].s(), x["id"].i(), 1);
-        cout << x["handel"].s() << " " << x["id"].s() << endl;
+        this->addLikes(x["handel"].s(), x["id"].i(),1);
+        cout<<x["handel"].s()<<" "<<x["id"].s()<<endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
@@ -65,14 +92,10 @@ void treeGram::Deploy() {
 
   // Route handler for posts
   CROW_ROUTE(app, "/jsonfeed")
-  ([this](crow::response &res) {
+  ([this] {
     const int n = 10; // Set the number of posts
     std::vector<crow::json::wvalue> postsArray;
 
-    // Set CORS headers
-    res.add_header("Access-Control-Allow-Origin", "*");
-    res.add_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.add_header("Access-Control-Allow-Headers", "Content-Type");
     for (int i = 0; i < n; ++i) {
       User *x = goFast.search(handels[i]);
       Activity z = x->activites[i % x->activites.getSize()];
@@ -95,7 +118,7 @@ void treeGram::Deploy() {
   });
   // Route handler for profile
   CROW_ROUTE(app, "/jsonProfile/<string>")
-  ([this](std::string Handle, crow::response &res) {
+  ([this](std::string Handle) {
     User *x = goFast.search(Handle);
 
     if (x == NULL)
@@ -112,10 +135,6 @@ void treeGram::Deploy() {
                               {"Date", x->activites[i].getDate()}}));
     }
 
-    // Set CORS headers
-    res.add_header("Access-Control-Allow-Origin", "*");
-    res.add_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-    res.add_header("Access-Control-Allow-Headers", "Content-Type");
     return crow::json::wvalue({{"name", x->getName()},
                                {"phone", x->getPhone()},
                                {"handel", x->getHandel()},
