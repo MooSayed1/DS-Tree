@@ -28,14 +28,14 @@ void treeGram::Deploy() {
         auto x = crow::json::load(req.body);
         if (!x)
           return crow::response(400);
-        this->addUser(x["name"].s(),x["phone"].s(),x["handel"].s(),x["age"].i());
-        cout<<x["name"].s()<<" "<<x["phone"].s()<<" "<<x["handel"].s()<<" "<<x["age"].i()<<endl;
+        this->addUser(x["name"].s(), x["phone"].s(), x["handel"].s(),
+                      x["age"].i());
+        cout << x["name"].s() << " " << x["phone"].s() << " " << x["handel"].s()
+             << " " << x["age"].i() << endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
       });
-
-
 
   CROW_ROUTE(app, "/add_post")
       .methods("POST"_method)([this](const crow::request &req) {
@@ -44,12 +44,11 @@ void treeGram::Deploy() {
           return crow::response(400);
 
         this->addPost(x["handel"].s(), x["content"].s());
-        cout<<x["handel"].s()<<" "<<x["content"].s()<<endl;
+        cout << x["handel"].s() << " " << x["content"].s() << endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
       });
-  
 
   CROW_ROUTE(app, "/add_like")
       .methods("POST"_method)([this](const crow::request &req) {
@@ -57,8 +56,8 @@ void treeGram::Deploy() {
         if (!x)
           return crow::response(400);
 
-        this->addLikes(x["handel"].s(), x["id"].i(),1);
-        cout<<x["handel"].s()<<" "<<x["id"].s()<<endl;
+        this->addLikes(x["handel"].s(), x["id"].i(), 1);
+        cout << x["handel"].s() << " " << x["id"].s() << endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
@@ -66,10 +65,14 @@ void treeGram::Deploy() {
 
   // Route handler for posts
   CROW_ROUTE(app, "/jsonfeed")
-  ([this] {
+  ([this](crow::response &res) {
     const int n = 10; // Set the number of posts
     std::vector<crow::json::wvalue> postsArray;
 
+    // Set CORS headers
+    res.add_header("Access-Control-Allow-Origin", "*");
+    res.add_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.add_header("Access-Control-Allow-Headers", "Content-Type");
     for (int i = 0; i < n; ++i) {
       User *x = goFast.search(handels[i]);
       Activity z = x->activites[i % x->activites.getSize()];
@@ -92,7 +95,7 @@ void treeGram::Deploy() {
   });
   // Route handler for profile
   CROW_ROUTE(app, "/jsonProfile/<string>")
-  ([this](std::string Handle) {
+  ([this](std::string Handle, crow::response &res) {
     User *x = goFast.search(Handle);
 
     if (x == NULL)
@@ -109,6 +112,10 @@ void treeGram::Deploy() {
                               {"Date", x->activites[i].getDate()}}));
     }
 
+    // Set CORS headers
+    res.add_header("Access-Control-Allow-Origin", "*");
+    res.add_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    res.add_header("Access-Control-Allow-Headers", "Content-Type");
     return crow::json::wvalue({{"name", x->getName()},
                                {"phone", x->getPhone()},
                                {"handel", x->getHandel()},
