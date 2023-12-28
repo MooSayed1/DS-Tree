@@ -1,8 +1,10 @@
 CC := g++
-CFLAGS := -std=c++11 -Wall -Wextra -g
+CFLAGS := -std=c++11 -Wall -Wextra
+LDFLAGS :=  # Additional linker flags
+PRODUCTION_CFLAGS := -O3 -DNDEBUG  # Production-specific flags
 
 SRC := main.cpp AVLTree.cpp User.cpp hashTable.cpp treeGram.cpp
-OBJ := $(SRC:.cpp=.o)  # Object files
+OBJ := $(SRC:.cpp=.o) 
 
 TARGET := main
 
@@ -11,10 +13,13 @@ TARGET := main
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@ $(LIBS)
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
+
+production: CFLAGS += $(PRODUCTION_CFLAGS)
+production: clean all
 
 clean:
 	rm -f $(TARGET) $(OBJ)
