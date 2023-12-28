@@ -22,6 +22,48 @@ void treeGram::test() {
 void treeGram::Deploy() {
 
   crow::SimpleApp app;
+
+  CROW_ROUTE(app, "/add_user")
+      .methods("POST"_method)([this](const crow::request &req) {
+        auto x = crow::json::load(req.body);
+        if (!x)
+          return crow::response(400);
+        this->addUser(x["name"].s(),x["phone"].s(),x["handel"].s(),x["age"].i());
+        cout<<x["name"].s()<<" "<<x["phone"].s()<<" "<<x["handel"].s()<<" "<<x["age"].i()<<endl;
+        std::ostringstream os;
+        os << x;
+        return crow::response{os.str()};
+      });
+
+
+
+  CROW_ROUTE(app, "/add_post")
+      .methods("POST"_method)([this](const crow::request &req) {
+        auto x = crow::json::load(req.body);
+        if (!x)
+          return crow::response(400);
+
+        this->addPost(x["handel"].s(), x["content"].s());
+        cout<<x["handel"].s()<<" "<<x["content"].s()<<endl;
+        std::ostringstream os;
+        os << x;
+        return crow::response{os.str()};
+      });
+  
+
+  CROW_ROUTE(app, "/add_like")
+      .methods("POST"_method)([this](const crow::request &req) {
+        auto x = crow::json::load(req.body);
+        if (!x)
+          return crow::response(400);
+
+        this->addLikes(x["handel"].s(), x["id"].i(),1);
+        cout<<x["handel"].s()<<" "<<x["id"].s()<<endl;
+        std::ostringstream os;
+        os << x;
+        return crow::response{os.str()};
+      });
+
   // Route handler for posts
   CROW_ROUTE(app, "/jsonfeed")
   ([this] {
@@ -30,16 +72,17 @@ void treeGram::Deploy() {
 
     for (int i = 0; i < n; ++i) {
       User *x = goFast.search(handels[i]);
-      Activity z = x->activites[i%x->activites.getSize()];
+      Activity z = x->activites[i % x->activites.getSize()];
 
-      postsArray.push_back(crow::json::wvalue({{"id", i%x->activites.getSize()},
-                                               {"Handle", x->getHandel()},
-                                               {"User_Name", x->getName()},
-                                               {"Content", z.getContent()},
-                                               {"Photo", "NONE"},
-                                               {"likes", z.getLikes()},
-                                               {"views", z.getViews()},
-                                               {"Date", z.getDate()}}));
+      postsArray.push_back(
+          crow::json::wvalue({{"id", i % x->activites.getSize()},
+                              {"Handle", x->getHandel()},
+                              {"User_Name", x->getName()},
+                              {"Content", z.getContent()},
+                              {"Photo", "NONE"},
+                              {"likes", z.getLikes()},
+                              {"views", z.getViews()},
+                              {"Date", z.getDate()}}));
     }
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
