@@ -11,8 +11,8 @@ void treeGram::test() {
   cout << goFast.size() << endl;
 
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-  std::default_random_engine rng(seed);
-  std::shuffle(std::begin(handels), std::end(handels), rng);
+  std::shuffle(std::begin(handels), std::end(handels),
+               std::default_random_engine(seed));
 
   for (unsigned int i = 0; i < handels.size(); i++) {
     cout << handels[i] << endl;
@@ -22,7 +22,31 @@ void treeGram::test() {
 void treeGram::Deploy() {
 
   crow::SimpleApp app;
+  // Route handler for posts
+  CROW_ROUTE(app, "/jsonfeed")
+  ([this] {
+    const int n = 10; // Set the number of posts
+    std::vector<crow::json::wvalue> postsArray;
 
+    for (int i = 0; i < n; ++i) {
+      User *x = goFast.search(handels[i]);
+      Activity z = x->activites[i%x->activites.getSize()];
+
+      postsArray.push_back(crow::json::wvalue({{"id", i%x->activites.getSize()},
+                                               {"Handle", x->getHandel()},
+                                               {"User_Name", x->getName()},
+                                               {"Content", z.getContent()},
+                                               {"Photo", "NONE"},
+                                               {"likes", z.getLikes()},
+                                               {"views", z.getViews()},
+                                               {"Date", z.getDate()}}));
+    }
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::shuffle(std::begin(handels), std::end(handels),
+                 std::default_random_engine(seed));
+    return crow::json::wvalue({{"Posts", postsArray}});
+  });
   // Route handler for profile
   CROW_ROUTE(app, "/jsonProfile/<string>")
   ([this](std::string Handle) {
