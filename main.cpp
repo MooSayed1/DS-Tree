@@ -4,6 +4,14 @@
 using namespace std;
 int main() {
   treeGram t;
+
+  t.addUser("Dr. Mahmmoud Mahdi", "00000", "Mahdi", 0);
+
+   t.addPost("Mahdi", "{وَيَعْفُو عَن كَثِيرٍ}");
+   t.addPost("Mahdi", "اللهم ارحم عبداً يرجو رحمتك ويخشى عذابك");
+   t.addPost("Mahdi", "وَللدَّهرِ احلاءٌ وَامرارُ");
+   t.addPost("Mahdi", "ولسْـتُ أخـشى رجــوعَ الكفِّ خائِبةً \n إن كُنْتَ يا مالكَ المُلكِ الذي يُعْطِي");
+
    t.addUser("Ahemd", "1", "GH", 5);
    t.addPost("GH", "Hello");
    t.addLikes("GH", 0, 10);
@@ -28,11 +36,15 @@ int main() {
 
    for(char i='A';i<'L';i++){
 
-   t.addUser(string(1,i), "1", string(1,i), 5);
+   t.addUser(string(3,i), "1", string(1,i), 5);
    t.addPost(string(1,i), string(10,i));
 
    }
 
+   for (int i=0;i<10;i++){
+
+   t.addPost("A", string(10,i+'0'));
+   }
    t.test();
    t.Deploy();
    
