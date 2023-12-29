@@ -1,5 +1,5 @@
 CC := g++
-CFLAGS := -std=c++11 -Wall -Wextra
+CFLAGS := -std=c++11 -Wall -Wextra -g
 LDFLAGS :=  # Additional linker flags
 PRODUCTION_CFLAGS := -O3 -DNDEBUG  # Production-specific flags
 

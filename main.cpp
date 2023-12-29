@@ -4,7 +4,7 @@
 using namespace std;
 int main() {
   treeGram t;
-   t.addUser("Dr. Mahmmoud Mahdi", "00000", "Mahdi", 0,"https://scontent.fcai20-5.fna.fbcdn.net/v/t39.30808-6/351316316_816877079445330_1791305687539301796_n.jpg?ccb=1-7&_nc_sid=efb6e6&_nc_ohc=KvIf9yOVmqwAX9-oQpR&_nc_ht=scontent.fcai20-5.fna&oh=00_AfBuH6vQurBQkFdo4_OOf_ZOgtPhY1Xcu7QjAT9HZUPJSw&oe=65923275","https://scontent.fcai20-5.fna.fbcdn.net/v/t39.30808-6/398137693_305537618934294_1318043544634511248_n.jpg?ccb=1-7&_nc_sid=783fdb&_nc_ohc=3jIU9aiM8bQAX8DARhN&_nc_ht=scontent.fcai20-5.fna&oh=00_AfCNki33EGuzLMrtUdDBmh9d8uro5S0MhARIWoMfhM_NrA&oe=6593E123");
+   t.addUser("Dr. Mahmmoud Mahdi", "00000", "Mahdi", 0,"https://images2.imgbox.com/3d/d8/zFvuqwEz_o.png","https://images2.imgbox.com/ba/2f/pMhSATMv_o.png");
 
    t.addPost("Mahdi", "{وَيَعْفُو عَن كَثِيرٍ}","https://i.pinimg.com/474x/98/5d/3c/985d3cb92dd7a7208afb8266956891e0.jpg");
    t.addPost("Mahdi", "اللهم ارحم عبداً يرجو رحمتك ويخشى عذابك","https://i.pinimg.com/474x/98/5d/3c/985d3cb92dd7a7208afb8266956891e0.jpg");

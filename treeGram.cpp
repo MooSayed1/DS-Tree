@@ -52,7 +52,7 @@ void treeGram::Deploy() {
         if (!x)
           return crow::response(400);
         this->addUser(x["name"].s(), x["phone"].s(), x["handel"].s(),
-                      x["age"].i(),NULL,NULL);
+                      x["age"].i(),"NULL","NULL");
         cout << x["name"].s() << " " << x["phone"].s() << " " << x["handel"].s()
              << " " << x["age"].i() << endl;
         std::ostringstream os;
@@ -146,18 +146,19 @@ void treeGram::Deploy() {
   app.port(18080).server_name("CrowCpp").multithreaded().run();
 }
 
-bool treeGram::addUser(const string & name,const string & phone,const string & handel,int age,const string & pfpUrl=NULL,const string & bannerUrl=NULL) {
+bool treeGram::addUser(const string & name,const string & phone,const string & handel,int age,const string & pfpUrl,const string & bannerUrl) {
 
   if (goFast.search(handel) == NULL) {
     cout << "added User :" << handel << endl;
     handels.push_back(handel);
+
     goFast.insert(name, phone, handel, age,pfpUrl,bannerUrl);
     return true;
   }
 
   return false;
 }
-bool treeGram::addPost(const string &handel,const string &content,const string & pic=NULL) {
+bool treeGram::addPost(const string &handel,const string &content,const string & pic) {
   User *temp = goFast.search(handel);
 
   if (temp != NULL) {
