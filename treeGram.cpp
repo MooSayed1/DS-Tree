@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <random>
+#include <string>
 
 treeGram::treeGram() {}
 treeGram::~treeGram() {}
@@ -51,7 +52,7 @@ void treeGram::Deploy() {
         if (!x)
           return crow::response(400);
         this->addUser(x["name"].s(), x["phone"].s(), x["handel"].s(),
-                      x["age"].i());
+                      x["age"].i(),NULL,NULL);
         cout << x["name"].s() << " " << x["phone"].s() << " " << x["handel"].s()
              << " " << x["age"].i() << endl;
         std::ostringstream os;
@@ -65,7 +66,7 @@ void treeGram::Deploy() {
         if (!x)
           return crow::response(400);
 
-        this->addPost(x["handel"].s(), x["content"].s());
+        this->addPost(x["handel"].s(), x["content"].s(),x["pic"].s());
         cout << x["handel"].s() << " " << x["content"].s() << endl;
         std::ostringstream os;
         os << x;
@@ -102,7 +103,7 @@ void treeGram::Deploy() {
                               {"Handle", x->getHandel()},
                               {"User_Name", x->getName()},
                               {"Content", z.getContent()},
-                              {"Photo", "NONE"},
+                              {"Photo", z.getPic()},
                               {"likes", z.getLikes()},
                               {"views", z.getViews()},
                               {"Date", z.getDate()}}));
@@ -126,7 +127,7 @@ void treeGram::Deploy() {
       profilePostsArray.push_back(
           crow::json::wvalue({{"id", i},
                               {"Content", x->activites[i].getContent()},
-                              {"Photo", "NONE"},
+                              {"Photo", x->activites[i].getPic()},
                               {"likes", x->activites[i].getLikes()},
                               {"views", x->activites[i].getViews()},
                               {"Date", x->activites[i].getDate()}}));
@@ -136,6 +137,8 @@ void treeGram::Deploy() {
                                {"phone", x->getPhone()},
                                {"handel", x->getHandel()},
                                {"age", x->getAge()},
+                               {"pfp", x->getPfp()},
+                               {"banner", x->getBanner()},
                                {"activites", profilePostsArray}});
     ;
   });
@@ -143,7 +146,7 @@ void treeGram::Deploy() {
   app.port(18080).server_name("CrowCpp").multithreaded().run();
 }
 
-bool treeGram::addUser(string name, string phone, string handel, int age) {
+bool treeGram::addUser(const string & name,const string & phone,const string & handel,int age,const string & pfpUrl=NULL,const string & bannerUrl=NULL) {
 
   if (goFast.search(handel) == NULL) {
     cout << "added User :" << handel << endl;
@@ -154,14 +157,14 @@ bool treeGram::addUser(string name, string phone, string handel, int age) {
 
   return false;
 }
-bool treeGram::addPost(const string &handel, const string &content) {
+bool treeGram::addPost(const string &handel,const string &content,const string & pic=NULL) {
   User *temp = goFast.search(handel);
 
   if (temp != NULL) {
     cout << "added Post for User :" << handel << endl
          << "Content" << content << endl;
 
-    temp->addPost(content);
+    temp->addPost(content,pic);
     return true;
   }
   return false;

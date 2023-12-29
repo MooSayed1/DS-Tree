@@ -12,8 +12,8 @@ class treeGram {
 public:
   treeGram();
   ~treeGram();
-  bool addUser(string name,string phone,string handel,int age);
-  bool addPost(const string &handel,const string &content);
+  bool addUser(const string & name,const string & phone,const string & handel,int age,const string & pfpUrl,const string & bannerUrl);
+  bool addPost(const string &handel,const string &content,const string & pic);
   bool addLikes(const string &handel,size_t post_num,size_t Likes);
   bool addViews(const string &handel,size_t post_num,size_t Views);
   void Deploy();

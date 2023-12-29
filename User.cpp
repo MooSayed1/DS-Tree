@@ -23,10 +23,10 @@ size_t User::getAge() const { return this->age; }
 
 User::User() : name("UNKOWN"), phone("UNKOWN"), handel(""), age(0) {}
 
-User::User(string name, string phone,string handel, int age)
-    : name(name), phone(phone), handel(handel), age(age) {}
-void User::addPost(const string &content) {
-  this->activites.enqueue(Activity(content));
+User::User(string name, string phone, string handel, int age,string pfp,string banner)
+    : name(name), phone(phone), handel(handel), age(age) ,pfp(pfp),banner(banner){}
+void User::addPost(const string &content,const string &pic) {
+  this->activites.enqueue(Activity(content,pic));
 }
 void User::addLikes(size_t post_num, size_t Likes) {
 

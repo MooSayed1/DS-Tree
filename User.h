@@ -13,11 +13,13 @@ private:
   string name;
   string phone;
   string handel;
+  string pfp;
+  string banner;
   size_t age;
 
 public:
   Queue<Activity> activites;
-  User(string name, string phone, string handel, int age);
+  User(string name, string phone, string handel, int age,string pfp,string banner);
 
   User();
   void displayInfo();
@@ -26,12 +28,14 @@ public:
   string getPhone() const;
   string getHandel() const;
   size_t getAge() const;
+  string getPfp() const;
+  string getBanner() const;
 
   void SetHandle(string newHandle) { this->handel = newHandle; }
 
   User(const User &other)
       : name(other.name), phone(other.phone), handel(other.handel),
-        age(other.age) {}
+        age(other.age),pfp(other.banner),banner(other.banner) {}
   User &operator=(const User &other) {
     if (this != &other) {
       // Copy each member variable
@@ -39,17 +43,21 @@ public:
       phone = other.phone;
       handel = other.handel;
       age = other.age;
+      pfp = other.pfp;
+      banner = other.banner;
     }
     return *this;
   }
 
-  void addPost(const string &content);
+  void addPost(const string &content,const string &pic);
 
   void MakeCopy(User &user) {
     this->handel = user.handel;
     this->age = user.age;
     this->name = user.name;
     this->phone = user.phone;
+    this->pfp = user.pfp;
+    this->banner =user.banner;
   }
   void SetData() {
 
