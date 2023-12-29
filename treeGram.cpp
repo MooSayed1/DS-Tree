@@ -151,7 +151,7 @@ bool treeGram::addUser(const string & name,const string & phone,const string & h
   if (goFast.search(handel) == NULL) {
     cout << "added User :" << handel << endl;
     handels.push_back(handel);
-    goFast.insert(name, phone, handel, age);
+    goFast.insert(name, phone, handel, age,pfpUrl,bannerUrl);
     return true;
   }
 

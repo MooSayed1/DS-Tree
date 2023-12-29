@@ -18,6 +18,8 @@ string User::getName() const { return this->name; }
 string User::getPhone() const { return this->phone; }
 string User::getHandel() const { return this->handel; }
 size_t User::getAge() const { return this->age; }
+string User::getPfp() const { return this->pfp; }
+string User::getBanner() const { return this->banner; }
 
 
 
