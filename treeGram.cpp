@@ -98,7 +98,7 @@ void treeGram::Deploy() {
 
     for (int i = 0; i < n; ++i) {
       User *x = goFast.search(handels[i]);
-      Activity z = x->activites[i % x->activites.getSize()];
+      Activity z = x->activites[(x->activites.getSize()!=0)? i % x->activites.getSize():0];
 
       postsArray.push_back(
           crow::json::wvalue({{"id", i % x->activites.getSize()},
