@@ -5,18 +5,17 @@ using namespace std;
 int main() {
   treeGram t;
 
-  t.addUser("Dr. Mahmmoud Mahdi", "00000", "Mahdi", 0);
+  t.addUser("Dr.Mahmmoud ", "00000", "Mahdi", 0);
 
    t.addPost("Mahdi", "{وَيَعْفُو عَن كَثِيرٍ}");
    t.addPost("Mahdi", "اللهم ارحم عبداً يرجو رحمتك ويخشى عذابك");
    t.addPost("Mahdi", "وَللدَّهرِ احلاءٌ وَامرارُ");
    t.addPost("Mahdi", "ولسْـتُ أخـشى رجــوعَ الكفِّ خائِبةً \n إن كُنْتَ يا مالكَ المُلكِ الذي يُعْطِي");
 
-  t.addUser("Mohamed Elsayed", "01092*****", "MooSayed", 20);
+  t.addUser("Mohamed ", "01092*****", "MooSayed", 20);
    t.addPost("MooSayed", "وَصَبْرٌ جَمِيلٌ ۖ وَاللَّهُ الْمُسْتَعَانُ عَلَىٰ مَا تَصِفُونَ");
    t.addPost("MooSayed", "Gaza forever <3");
    t.addPost("MooSayed", "testing");
-   t.addPost("MooSayed", "وَصَبْرٌ جَمِيلٌ ۖ وَاللَّهُ الْمُسْتَعَانُ عَلَىٰ مَا تَصِفُونَ");
    
 
    t.addUser("Ahemd", "1", "GH", 5);
@@ -33,10 +32,8 @@ int main() {
    t.addUser("Ezz", "1", "EZZ", 5);
    t.addPost("EZZ", "Hello");
    t.addLikes("EZZ", 0, 10);
-   t.addLikes("EZZ", 0, 10);
    t.addPost("EZZ", "Hello GH");
-   t.addPost("EZZ", "Hello2");
-   t.addPost("EZZ", "Hello3");
+
 
    t.addLikes("EZZ", 2, 14);
    t.addLikes("EZZ", 2, 15);
