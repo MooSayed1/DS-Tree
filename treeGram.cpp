@@ -79,8 +79,10 @@ void treeGram::Deploy() {
         if (!x)
           return crow::response(400);
 
-        this->addLikes(x["handel"].s(), x["id"].i(), 1);
-        cout << x["handel"].s() << " " << x["id"].s() << endl;
+        this->addLikes(x["handel"].s(), x["id"].i(), x["like?"].i());
+
+        cout << x["handel"].s() << " " << x["id"].s() << " " << x["like?"].i()
+             << endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
