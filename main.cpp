@@ -8,6 +8,7 @@ int main() {
   t.addUser("Dr.Mahmmoud ", "00000", "Mahdi", 0);
 
   t.addPost("Mahdi", " ");
+  t.addPost("Mahdi", " ");
 
   t.addPost("Mahdi", "{وَيَعْفُو عَن كَثِيرٍ}");
   t.addPost("Mahdi", "اللهم ارحم عبداً يرجو رحمتك ويخشى عذابك");
@@ -53,6 +54,7 @@ int main() {
 
   t.addUser("Test", "1", "TEST", 0);
 
+  t.addPost("Test", "1");
 
   t.Deploy();
 
