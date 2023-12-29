@@ -1,7 +1,7 @@
 #include "treeGram.h"
 #include <algorithm>
 #include <chrono> // std::chrono::system_clock
-#include <crow/middlewares/cors.h>
+// #include <crow/middlewares/cors.h>
 #include <cstddef>
 #include <cstdlib>
 #include <random>
@@ -23,27 +23,28 @@ void treeGram::test() {
 void treeGram::Deploy() {
 
   // Enable CORS
-  crow::App<crow::CORSHandler> app;
+  crow::SimpleApp app;
 
-  // Customize CORS
-  auto &cors = app.get_middleware<crow::CORSHandler>();
-  // clang-format off
-    cors
-      .global()
-        .headers("X-Custom-Header", "Upgrade-Insecure-Requests")
-        .methods("POST"_method, "GET"_method)
-      .prefix("/cors")
-        .origin("json.almiraj.xyz")
-      .prefix("/nocors")
-        .ignore();
-  // clang-format on
-
-  CROW_ROUTE(app, "/")
-  ([]() { return "Check Access-Control-Allow-Methods header"; });
-
-  CROW_ROUTE(app, "/cors")
-  ([]() { return "Check Access-Control-Allow-Origin header"; });
-
+  //
+  // // Customize CORS
+  // auto &cors = app.get_middleware<crow::CORSHandler>();
+  // // clang-format off
+  //   cors
+  //     .global()
+  //       .headers("X-Custom-Header", "Upgrade-Insecure-Requests")
+  //       .methods("POST"_method, "GET"_method)
+  //     .prefix("/cors")
+  //       .origin("json.almiraj.xyz")
+  //     .prefix("/nocors")
+  //       .ignore();
+  // // clang-format on
+  //
+  // CROW_ROUTE(app, "/")
+  // ([]() { return "Check Access-Control-Allow-Methods header"; });
+  //
+  // CROW_ROUTE(app, "/cors")
+  // ([]() { return "Check Access-Control-Allow-Origin header"; });
+  //
   CROW_ROUTE(app, "/add_user")
       .methods("POST"_method)([this](const crow::request &req) {
         auto x = crow::json::load(req.body);
