@@ -12,6 +12,13 @@ int main() {
    t.addPost("Mahdi", "وَللدَّهرِ احلاءٌ وَامرارُ");
    t.addPost("Mahdi", "ولسْـتُ أخـشى رجــوعَ الكفِّ خائِبةً \n إن كُنْتَ يا مالكَ المُلكِ الذي يُعْطِي");
 
+  t.addUser("Mohamed Elsayed", "01092*****", "MooSayed", 20);
+   t.addPost("MooSayed", "وَصَبْرٌ جَمِيلٌ ۖ وَاللَّهُ الْمُسْتَعَانُ عَلَىٰ مَا تَصِفُونَ");
+   t.addPost("MooSayed", "Gaza forever <3");
+   t.addPost("MooSayed", "testing");
+   t.addPost("MooSayed", "وَصَبْرٌ جَمِيلٌ ۖ وَاللَّهُ الْمُسْتَعَانُ عَلَىٰ مَا تَصِفُونَ");
+   
+
    t.addUser("Ahemd", "1", "GH", 5);
    t.addPost("GH", "Hello");
    t.addLikes("GH", 0, 10);
