@@ -22,13 +22,13 @@ void treeGram::test() {
 }
 void treeGram::Deploy() {
 
-    // Enable CORS
-    crow::App<crow::CORSHandler> app;
+  // Enable CORS
+  crow::App<crow::CORSHandler> app;
 
-    // Customize CORS
-    auto& cors = app.get_middleware<crow::CORSHandler>();
+  // Customize CORS
+  auto &cors = app.get_middleware<crow::CORSHandler>();
 
-    // clang-format off
+  // clang-format off
     cors
       .global()
         .headers("X-Custom-Header", "Upgrade-Insecure-Requests")
@@ -37,31 +37,27 @@ void treeGram::Deploy() {
         .origin("tree.almiraj.xyz")
       .prefix("/nocors")
         .ignore();
-    // clang-format on
+  // clang-format on
 
-    CROW_ROUTE(app, "/")
-    ([]() {
-        return "Check Access-Control-Allow-Methods header";
-    });
+  CROW_ROUTE(app, "/")
+  ([]() { return "Check Access-Control-Allow-Methods header"; });
 
-    CROW_ROUTE(app, "/cors")
-    ([]() {
-        return "Check Access-Control-Allow-Origin header";
-    });
+  CROW_ROUTE(app, "/cors")
+  ([]() { return "Check Access-Control-Allow-Origin header"; });
 
   CROW_ROUTE(app, "/add_user")
       .methods("POST"_method)([this](const crow::request &req) {
         auto x = crow::json::load(req.body);
         if (!x)
           return crow::response(400);
-        this->addUser(x["name"].s(),x["phone"].s(),x["handel"].s(),x["age"].i());
-        cout<<x["name"].s()<<" "<<x["phone"].s()<<" "<<x["handel"].s()<<" "<<x["age"].i()<<endl;
+        this->addUser(x["name"].s(), x["phone"].s(), x["handel"].s(),
+                      x["age"].i());
+        cout << x["name"].s() << " " << x["phone"].s() << " " << x["handel"].s()
+             << " " << x["age"].i() << endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
       });
-
-
 
   CROW_ROUTE(app, "/add_post")
       .methods("POST"_method)([this](const crow::request &req) {
@@ -70,12 +66,11 @@ void treeGram::Deploy() {
           return crow::response(400);
 
         this->addPost(x["handel"].s(), x["content"].s());
-        cout<<x["handel"].s()<<" "<<x["content"].s()<<endl;
+        cout << x["handel"].s() << " " << x["content"].s() << endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
       });
-  
 
   CROW_ROUTE(app, "/add_like")
       .methods("POST"_method)([this](const crow::request &req) {
@@ -83,8 +78,10 @@ void treeGram::Deploy() {
         if (!x)
           return crow::response(400);
 
-        this->addLikes(x["handel"].s(), x["id"].i(),1);
-        cout<<x["handel"].s()<<" "<<x["id"].s()<<endl;
+        this->addLikes(x["handel"].s(), x["id"].i(), x["like?"].i());
+
+        cout << x["handel"].s() << " " << x["id"].s() << " " << x["like?"].i()
+             << endl;
         std::ostringstream os;
         os << x;
         return crow::response{os.str()};
