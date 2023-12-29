@@ -7,8 +7,8 @@ int main() {
 
   t.addUser("Dr.Mahmmoud ", "00000", "Mahdi", 0);
 
-  t.addPost("Mahdi", " ");
-  t.addPost("Mahdi", " ");
+  t.addPost("Mahdi", "x ");
+  t.addPost("Mahdi", "x ");
 
   t.addPost("Mahdi", "{وَيَعْفُو عَن كَثِيرٍ}");
   t.addPost("Mahdi", "اللهم ارحم عبداً يرجو رحمتك ويخشى عذابك");
@@ -43,7 +43,7 @@ int main() {
   t.addPost("ahmed hossam", "Be nice 😔, but why");
 
   t.addUser("ENG abdo"," ","ENG abdo", 0);
-  t.addPost("Eng abdo","الناس نوعين ناس بتصيح من المشاكل وناس بتحل المشاكل");
+  t.addPost("ENG abdo","الناس نوعين ناس بتصيح من المشاكل وناس بتحل المشاكل");
 
   t.addUser("The real one", "1", "The real one", 0);
   t.addPost("The real one", "slavery is coming, reconsider finding the truth");
@@ -54,7 +54,7 @@ int main() {
 
   t.addUser("Test", "1", "TEST", 0);
 
-  t.addPost("Test", "1");
+  t.addPost("TEST", "1");
 
   t.Deploy();
 
