@@ -1,4 +1,5 @@
 #include "hashTable.h"
+#include <string>
 
 HashTable::HashTable() // default constructor
 {
@@ -50,12 +51,12 @@ bool HashTable::isPrime(int n) const
   return isPrime;
 }
 
-bool HashTable::insert(string name, string phone, string handel, int age)
+bool HashTable::insert(string name, string phone, string handel, int age,string pfp,string banner)
 // inserts string s if it doesn't exist in the hash table and
 // returns 1 if insertion successful, 0 otherwise
 {
   int hash = hashFunc(handel);
-  User key(name, phone, handel, age);
+  User key(name, phone, handel, age,pfp,banner);
   bool successOrFail = arr[hash].insert(key);
   numOfItems++;
   return successOrFail;

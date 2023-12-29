@@ -12,7 +12,7 @@ public:
   HashTable();    // default constructor
   HashTable(int); // one parameter constructor
   ~HashTable();   // destructor
-  bool insert(string name, string phone, string handel, int age);
+  bool insert(string name, string phone, string handel, int age,string pfp,string banner);
   bool remove(const string &);
   User *search(const string &) const;
   int size() const;          // return numOfItems
