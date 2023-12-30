@@ -61,6 +61,8 @@ int main() {
   t.addUser("mohy", "1", "mohy", 0);
   t.addPost("mohy", "你为这一切做了什么");
 
+  t.addUser("Messi","1","messi1",0);
+  t.addPost("messi1","messi is the best");
 
   t.addUser("anas", "1", "ANAS", 0);
   t.addPost("ANAS", "سبحان الله والحمد لله ولا إله إلا الله والله أكبر");
