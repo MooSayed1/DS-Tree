@@ -16,10 +16,18 @@ int main() {
   t.addPost("Mahdi",
             "ولسْـتُ أخـشى رجــوعَ الكفِّ خائِبةً \n إن كُنْتَ يا مالكَ المُلكِ الذي يُعْطِي");
 
+  t.addLikes("Mahdi", 0, 85);
+  t.addLikes("Mahdi", 1, 112);
+  t.addLikes("Mahdi", 2, 106);
+  t.addLikes("Mahdi", 3, 138);
+  t.addLikes("Mahdi", 4, 104);
+  t.addLikes("Mahdi", 5, 112);
+
   t.addUser("Mohamed ", "01092*****", "MooSayed", 20);
   t.addPost("MooSayed", "Chess");
   t.addPost("MooSayed", "وَصَبْرٌ جَمِيلٌ ۖ وَاللَّهُ الْمُسْتَعَانُ عَلَىٰ مَا تَصِفُونَ");
   t.addPost("MooSayed", "Gaza forever <3");
+  t.addPost("MooSayed", "بنحبك دكتور مهدي ❤️");
   t.addPost("MooSayed", "testing");
 
   t.addUser("Anon Miraj", "s","EZZ", 0);
@@ -52,9 +60,16 @@ int main() {
   t.addPost("mohy", "你为这一切做了什么");
 
 
-  t.addUser("Test", "1", "TEST", 0);
+  t.addUser("anas", "1", "ANAS", 0);
+  t.addPost("ANAS", "سبحان الله والحمد لله ولا إله إلا الله والله أكبر");
+  t.addPost("ANAS", "لا إله إلا أنت سبحانك إني كنت من الظالمين");
 
-  t.addPost("TEST", "1");
+  t.addUser("Maro", "1", "TOMAKO", 1);
+  t.addPost("Maro", "Be better");
+
+  t.addUser("Reaper", "1", "HIM", 0);
+  t.addPost("HIM", "متحاولش تثير اعجاب الناس اللى حواليك مقابل اى جزء من نفسك اهتم بنفسك وحسن من نفسك والاعجاب هييجى بعدين");
+  t.addPost("HIM", "الدين مش موضة مش حاجة بتظهر وتختفى مع الوقت ده الاساس لاى حاجة بتنفذها فى حياتك ");
 
   t.Deploy();
 
