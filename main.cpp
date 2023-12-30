@@ -39,7 +39,6 @@ int main() {
 
   t.addUser("Ahemd Elghrabawy", "s","GH", 0);
   t.addPost("GH", "تحيا السيتي ");
-  t.addPost("GH", "بنحبك دكتور مهدي ❤️");
   t.addPost("GH", "{ بَلۡ أَحۡیَاۤءٌ عِندَ رَبِّهِمۡ یُرۡزَقُونَ }");
 
   t.addUser("Sayed Ahmed", "x","onlychads", 0);
