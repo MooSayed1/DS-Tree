@@ -53,6 +53,8 @@ int main() {
   t.addUser("ENG abdo"," ","ENG abdo", 0);
   t.addPost("ENG abdo","الناس نوعين ناس بتصيح من المشاكل وناس بتحل المشاكل");
 
+  t.addLikes("ENG abdo", 0, 30);
+
   t.addUser("The real one", "1", "The real one", 0);
   t.addPost("The real one", "slavery is coming, reconsider finding the truth");
 
@@ -65,7 +67,7 @@ int main() {
   t.addPost("ANAS", "لا إله إلا أنت سبحانك إني كنت من الظالمين");
 
   t.addUser("Maro", "1", "TOMAKO", 1);
-  t.addPost("Maro", "Be better");
+  t.addPost("TOMAKO", "Be better");
 
   t.addUser("Reaper", "1", "HIM", 0);
   t.addPost("HIM", "متحاولش تثير اعجاب الناس اللى حواليك مقابل اى جزء من نفسك اهتم بنفسك وحسن من نفسك والاعجاب هييجى بعدين");
